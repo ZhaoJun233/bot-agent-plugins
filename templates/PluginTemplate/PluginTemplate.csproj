@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>0.1.0</Version>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BotAgent.Core">
+      <HintPath>$(BotAgentCorePath)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+  <Target Name="RequirePluginApi" BeforeTargets="ResolveReferences" Condition="!Exists('$(BotAgentCorePath)')">
+    <Error Text="Set BotAgentCorePath to the host BotAgent.Core.dll or build the reference-only SDK." />
+  </Target>
+</Project>

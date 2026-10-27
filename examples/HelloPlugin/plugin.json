@@ -1,0 +1,12 @@
+{
+  "Id": "community.example.hello",
+  "Version": "1.0.0",
+  "EntryAssembly": "HelloPlugin.dll",
+  "EntryType": "Marketplace.Examples.HelloPlugin",
+  "ApiVersion": 1,
+  "TargetFramework": "net8.0",
+  "MinimumHostVersion": "1.0.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": []
+}

@@ -1,0 +1,8 @@
+Minimal BotAgent plugin API declarations are based on the public BotAgent project.
+Copyright (c) 2026 Bot Agent Contributors
+Licensed under the MIT License reproduced in LICENSE.
+Source: https://github.com/ZhaoJun233/bot-agent
+
+Marketplace scaffolding, validator, template and inert example:
+Copyright (c) 2026 BotAgent Plugin Marketplace Contributors
+Licensed under the MIT License.

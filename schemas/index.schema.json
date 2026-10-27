@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/index.schema.json",
+  "title": "BotAgent marketplace index",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "SchemaVersion",
+    "Plugins"
+  ],
+  "properties": {
+    "SchemaVersion": {
+      "const": 1
+    },
+    "Plugins": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "$ref": "manifest.schema.json"
+      }
+    }
+  }
+}

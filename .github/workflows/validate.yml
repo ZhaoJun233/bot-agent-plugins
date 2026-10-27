@@ -1,0 +1,46 @@
+name: Validate marketplace
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: |
+            10.0.101
+            8.0.x
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r tools/requirements.txt
+      - run: dotnet build examples/HelloPlugin/HelloPlugin.csproj -c Release
+      - name: Build reusable template
+        run: dotnet build templates/PluginTemplate/PluginTemplate.csproj -c Release -p:BotAgentCorePath="$GITHUB_WORKSPACE/sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll"
+      - name: Probe reference SDK
+        run: dotnet run --project tests/ContractProbe -c Release -- sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
+      - run: python tools/package.py
+      - run: python tools/validate.py --archive artifacts/release/community.example.hello-1.0.0.zip
+      - run: python -m unittest discover -s tools -p 'test_*.py'
+      - name: Check public host contract
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: ZhaoJun233/bot-agent
+          ref: c37c818a16a1b489c3a4d5f2c6d7a9dce42776e7
+          path: artifacts/host-reference
+          persist-credentials: false
+      - run: dotnet build artifacts/host-reference/src/BotAgent.Core/BotAgent.Core.csproj -c Release
+      - name: Probe actual public host contract
+        run: dotnet run --project tests/ContractProbe -c Release -- artifacts/host-reference/src/BotAgent.Core/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: verified-example-release
+          path: artifacts/release/
+          if-no-files-found: error
