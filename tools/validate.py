@@ -52,6 +52,9 @@ def validate_manifest(manifest):
         raise ValueError("Manifest too large")
     safe_path(manifest["Id"])
     safe_path(manifest["EntryAssembly"])
+    minimum = manifest.get("MinimumHostVersion")
+    if minimum and any(int(part) > 2147483647 for part in minimum.split(".")):
+        raise ValueError("Host assembly version component out of range")
     if manifest["Sha256"] == "0" * 64:
         raise ValueError("Placeholder hash forbidden")
     url = urlsplit(manifest["DownloadUrl"])

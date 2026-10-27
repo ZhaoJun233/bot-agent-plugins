@@ -12,6 +12,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+          fetch-depth: 0
       - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
         with:
           dotnet-version: |
@@ -29,6 +30,10 @@ jobs:
       - run: python tools/package.py
       - run: python tools/validate.py --archive artifacts/release/community.example.hello-1.0.0.zip
       - run: python -m unittest discover -s tools -p 'test_*.py'
+      - name: Keep existing release pins immutable
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: python tools/check_immutable.py
       - name: Check public host contract
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

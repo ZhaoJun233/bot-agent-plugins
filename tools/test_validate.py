@@ -24,7 +24,7 @@ class CatalogTests(unittest.TestCase):
 
     def test_invalid_pins(self):
         for key, value in [("Version", "latest"), ("Version", "1.0.0+local"),
-                           ("Version", "1.0.0-01"), ("ApiVersion", 2),
+                           ("Version", "1.0.0-01"), ("Version", "1.0.0-alpha--beta"), ("ApiVersion", 2),
                            ("Sha256", "0" * 64), ("Sha256", "bad"),
                            ("Id", "preset.feature.test"), ("Id", "test..bad"),
                            ("Id", "con"), ("TargetFramework", "net9.0"),

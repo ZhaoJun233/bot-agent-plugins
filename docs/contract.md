@@ -7,7 +7,7 @@ The canonical index is an object with exactly SchemaVersion (integer 1) and Plug
 | Field | Required | Meaning / validation |
 | --- | --- | --- |
 | Id | yes | 1-80 lower-case letters, digits, dots or hyphens, starts with a letter. No preset. prefix, doubled/trailing dot, or reserved device name. |
-| Version | yes | Exact SemVer major.minor.patch with optional prerelease; no range, latest, leading-zero numeric identifier or build metadata. |
+| Version | yes | Exact SemVer major.minor.patch with optional prerelease, restricted to the API 1 host grammar; no range, latest, leading-zero numeric identifier, build metadata, consecutive hyphens or leading/trailing prerelease hyphen. |
 | EntryAssembly | yes | Safe relative DLL path, maximum 240 characters. No traversal, rooted path, backslash, reserved device name or alias. |
 | EntryType | yes | Fully qualified public concrete IBotPlugin implementation with a public parameterless constructor; maximum 512 characters. |
 | Sha256 | yes | 64 hex characters pinning the **entire ZIP bytes**, not just a DLL; non-placeholder. |
