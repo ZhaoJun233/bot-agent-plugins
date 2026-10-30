@@ -1,11 +1,11 @@
-# Security and privacy
+# 安全与隐私策略
 
-English | [简体中文](SECURITY.zh-CN.md)
+简体中文 | [English](SECURITY.en.md)
 
-Plugins run in process with full .NET code trust. **There is no sandbox.** Permissions are descriptive declarations, not access control. SHA256 detects changed bytes only when the index/manifest is independently trusted. HTTPS and a public source link do not establish publisher trust.
+插件在宿主进程内运行，享有 .NET 的完全信任级别。**不存在任何沙箱隔离。** 权限声明仅属于描述性信息披露，并非访问控制机制。仅在索引与清单本身受独立信任的前提下，SHA256 才能用于检测文件字节是否被篡改。HTTPS 传输与公开源码链接并不能直接等同于对发布者的信任。
 
-Review source and build provenance, pin a specific catalog revision when practical, inspect the full manifest, keep rollback copies, and enable only the intended plugin. A new community plugin is disabled by default and activation requires a restart. Never enable code merely because it appears in a catalog. This project does not perform production deployment.
+请仔细审查插件源码与构建来源出处；在可行的情况下固定特定的目录版本（revision）；仔细检查完整清单；保留回滚副本；并且只启用确需使用的插件。新安装的社区插件默认处于禁用状态，激活需要重启宿主。绝不要仅仅因为某段代码出现在目录中就直接启用它。本项目不会执行任何生产环境部署。
 
-Only compiled plugin assemblies belong in installable ZIPs. Never include a host Core DLL, source, secrets, chat logs, member profiles, personal identifiers, install hooks, build scripts or post-install commands. The checked-in maintainer tools run only during development/CI and are not distributed in plugin ZIPs.
+可安装的 ZIP 压缩包中仅应包含已编译的插件程序集。**严禁**包含宿主 Core DLL、源码、密钥密码、群聊日志、成员人物画像、个人身份标识符、安装钩子、构建脚本或安装后执行命令。仓库中纳入版本管理的维护者工具仅在开发与 CI 阶段运行，绝不会打包到插件 ZIP 中。
 
-Report vulnerabilities using GitHub's private vulnerability reporting if available. Do not post sensitive material to a public issue. If private reporting is unavailable, open a minimal issue requesting a private channel without disclosing exploit secrets, private messages or personal data. Public reproductions must use synthetic data only.
+如发现安全漏洞，请优先使用 GitHub 的私密漏洞报告功能（Private vulnerability reporting）。切勿在公开 Issue 中发布敏感信息。若私密报告功能不可用，请提交一个极简的 Issue 请求建立私密沟通渠道，且不要在其中披露漏洞细节、私密消息或个人数据。所有公开的复现步骤与数据必须仅使用合成数据（synthetic data）。
