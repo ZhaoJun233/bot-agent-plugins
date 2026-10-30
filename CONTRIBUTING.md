@@ -1,5 +1,7 @@
 # Contributing and release checklist
 
+English | [简体中文](CONTRIBUTING.zh-CN.md)
+
 1. Choose a unique non-preset plugin ID and a fixed SemVer version. Keep a public source repository under review. Describe requested permissions honestly; declarations do not sandbox code.
 2. Use [the SDK guide](sdk/README.md). Build compiled net8.0 assemblies on CI/developer machines only. Test against an actual host Core DLL and exercise shutdown/cancellation with synthetic inputs.
 3. Validate the [manifest contract](docs/contract.md), permissions, dependencies, typed settings and compatibility. Do not include real accounts, domains, messages, secrets or machine-specific paths in source or docs. GitHub source and release links are allowed.

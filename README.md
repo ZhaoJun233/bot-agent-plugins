@@ -1,5 +1,7 @@
 # BotAgent plugin marketplace
 
+English | [简体中文](README.zh-CN.md)
+
 A public, version-pinned catalog of reviewed community plugins for [BotAgent](https://github.com/ZhaoJun233/bot-agent). This is a separate repository, not a mirror of the host's history.
 
 **Plugins execute arbitrary .NET code in the host process. They are not sandboxed.** A checksum authenticates bytes relative to a trusted catalog; it does not prove that code is safe. Only install reviewed publishers and keep backups. Permission declarations are disclosures, **not enforceable capability isolation**. New community plugins are disabled by default; installation, upgrade, rollback and removal are staged for a host restart. Installation must not compile source or run install scripts.

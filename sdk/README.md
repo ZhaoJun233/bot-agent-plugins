@@ -1,5 +1,7 @@
 # Minimal compile-time SDK and template
 
+English | [简体中文](README.zh-CN.md)
+
 [PluginApi.cs](BotAgent.PluginApi/PluginApi.cs) declares only the existing public IBotPlugin, PluginCategory and PluginContext contract. It is not a replacement runtime and exposes no other host internals. Its assembly identity is BotAgent.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null.
 
 The contract is from the public [BotAgent API snapshot](https://github.com/ZhaoJun233/bot-agent/blob/c37c818a16a1b489c3a4d5f2c6d7a9dce42776e7/src/BotAgent.Core/Domain/Plugins/IBotPlugin.cs) and [PluginContext](https://github.com/ZhaoJun233/bot-agent/blob/c37c818a16a1b489c3a4d5f2c6d7a9dce42776e7/src/BotAgent.Core/Domain/Plugins/PluginContext.cs). MIT attribution is preserved in [NOTICE](../NOTICE) and [LICENSE](../LICENSE). No private host repository or history is needed.

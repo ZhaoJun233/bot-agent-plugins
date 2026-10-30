@@ -1,5 +1,7 @@
 # Catalog and manifest contract (API 1)
 
+English | [简体中文](contract.zh-CN.md)
+
 The canonical index is an object with exactly SchemaVersion (integer 1) and Plugins (array of complete manifests, maximum 1024). JSON keys are PascalCase. Do not add $schema, descriptive fields or a nested Compatibility object to runtime manifests; the runtime rejects unknown fields. The standalone [JSON schemas](../schemas/manifest.schema.json) identify their own dialect.
 
 ## Manifest fields
