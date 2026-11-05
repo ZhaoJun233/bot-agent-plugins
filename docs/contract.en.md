@@ -35,7 +35,7 @@ These are descriptors for the host's generic settings UI. The v1 PluginContext A
 
 Archives are at most 32 MiB compressed, 128 MiB expanded, 2048 entries, and 32 MiB per file. This marketplace permits **only plugin .dll files**, never BotAgent.Core.dll, native installer executables, symlinks, source files or runtime scripts. The example ZIP contains exactly one compiled DLL. The complete manifest is detached to avoid a self-referential archive hash.
 
-Host behavior: validate → download bounded ZIP → verify full SHA256 → stage an immutable version → leave community plugin disabled → operator enables and restarts. Upgrade, rollback and uninstall are restart-bound; plugin code must stop cleanly on shutdown. In-process arbitrary code may access the process's data, credentials, filesystem and network regardless of Permissions. Review both code and publisher before trusting the manifest.
+Host behavior: validate → download bounded ZIP → verify full SHA256 → stage an immutable version → apply according to host capability. The current host with reload hooks can hot-apply installation, upgrade, rollback and uninstall; compatibility hosts may require a restart. Operation receipts and runtime state determine applied/enabled/restart status; catalog presence does not mean loaded. Plugin code must stop cleanly on shutdown. In-process arbitrary code may access the process's data, credentials, filesystem and network regardless of Permissions. Review both code and publisher before trusting the manifest.
 
 Plugin assembly identity/metadata must agree with the manifest. Community plugins must set IsPreset=false. The SDK's compile-time BotAgent.Core reference must resolve to the real host-owned assembly at runtime.
 

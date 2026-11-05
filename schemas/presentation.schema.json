@@ -1,0 +1,229 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BotAgent market presentation v1 (non-executable sidecar)",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "SchemaVersion",
+    "Entries"
+  ],
+  "properties": {
+    "SchemaVersion": {
+      "const": 1
+    },
+    "Entries": {
+      "type": "array",
+      "maxItems": 2048,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "Id",
+          "Version",
+          "PackageSha256",
+          "Metadata"
+        ],
+        "properties": {
+          "Id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.-]{1,96}$"
+          },
+          "Version": {
+            "type": "string",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+          },
+          "PackageSha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "Metadata": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "Name",
+              "Summary",
+              "Description",
+              "Category",
+              "Author",
+              "License",
+              "Usage",
+              "RiskNotice",
+              "Configuration",
+              "Compatibility",
+              "Changelog",
+              "Maintenance",
+              "PermissionNotes",
+              "Repository",
+              "Tags",
+              "Runtime",
+              "SourceKind",
+              "Review"
+            ],
+            "properties": {
+              "Name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Category": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Author": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "License": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Usage": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "RiskNotice": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Configuration": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Compatibility": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Changelog": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Maintenance": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "PermissionNotes": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "Repository": {
+                "type": "string",
+                "pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?$"
+              },
+              "Tags": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80
+                },
+                "maxItems": 24,
+                "uniqueItems": true
+              },
+              "Runtime": {
+                "enum": [
+                  "builtin",
+                  "dotnet",
+                  "python"
+                ]
+              },
+              "SourceKind": {
+                "enum": [
+                  "builtin",
+                  "official",
+                  "community"
+                ]
+              },
+              "Review": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "Status",
+                  "Version",
+                  "Sha256"
+                ],
+                "properties": {
+                  "Status": {
+                    "enum": [
+                      "unreviewed",
+                      "reviewed"
+                    ]
+                  },
+                  "Version": {
+                    "type": "string",
+                    "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+                  },
+                  "Sha256": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "Reviewer": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 200
+                  },
+                  "ReviewedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "SourceRevision": {
+                    "type": "string",
+                    "pattern": "^(?:[0-9a-fA-F]{40}|[0-9a-fA-F]{64})$"
+                  },
+                  "Notes": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 4000
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "Status": {
+                          "const": "reviewed"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "Reviewer",
+                        "ReviewedAt",
+                        "SourceRevision"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

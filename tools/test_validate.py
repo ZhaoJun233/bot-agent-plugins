@@ -35,7 +35,7 @@ class CatalogTests(unittest.TestCase):
 
     def test_release_link(self):
         for url in ["http://example.com/plugin.zip", "https://github.com/a/b/releases/latest/download/plugin.zip",
-                    self.manifest["DownloadUrl"] + "?token=placeholder"]:
+                    self.manifest["DownloadUrl"] + "?variant=placeholder"]:
             self.reject("DownloadUrl", url)
 
     def test_settings(self):

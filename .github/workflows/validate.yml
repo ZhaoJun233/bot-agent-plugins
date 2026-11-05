@@ -29,6 +29,8 @@ jobs:
         run: dotnet run --project tests/ContractProbe -c Release -- sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
       - run: python tools/package.py
       - run: python tools/validate.py --archive artifacts/release/community.example.hello-1.0.0.zip
+      - name: Validate Chinese presentation sidecar
+        run: python tools/validate_presentation.py
       - run: python -m unittest discover -s tools -p 'test_*.py'
       - name: Keep existing release pins immutable
         env:
