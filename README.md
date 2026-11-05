@@ -2,9 +2,9 @@
 
 简体中文 | [English](README.en.md)
 
-面向 [BotAgent](https://github.com/ZhaoJun233/bot-agent) 的公开、版本锁定的社区已审核插件目录。这是一个独立的仓库，并非宿主提交历史的镜像。
+面向 [BotAgent](https://github.com/ZhaoJun233/bot-agent) 的公开、版本锁定的社区插件目录。收录不等于安全审核：当前示例包明确标记为**未审核**，未来审核必须绑定确切版本和包哈希。这是一个独立的仓库，并非宿主提交历史的镜像。
 
-**插件在宿主进程内执行任意 .NET 代码，未运行在沙箱中。** 校验和仅用于向受信任的目录证实文件字节完整性，并不能证明代码本身是安全的。请仅安装经过审查的发布者发布的插件，并做好数据备份。权限声明仅供**信息披露**，**并非可强制执行的能力隔离边界**。新安装的社区插件默认处于禁用状态；其安装、升级、回滚与卸载均在宿主重启时生效。安装过程严禁编译源码或执行安装脚本。
+**插件在宿主进程内执行任意 .NET 代码，未运行在沙箱中。** 校验和仅用于向受信任的目录证实文件字节完整性，并不能证明代码本身是安全的。请仅安装经过审查的发布者发布的插件，并做好数据备份。权限声明仅供**信息披露**，**并非可强制执行的能力隔离边界**。新安装的社区插件默认处于禁用状态；支持热应用的宿主可在暂存后加载变更，兼容宿主需重启；以操作回执为准，不能把暂存或超时误报为成功。安装过程严禁编译源码或执行安装脚本。
 
 ## 目录与发布规范
 
@@ -15,7 +15,17 @@
 
 发布 Tag：**community.example.hello-1.0.0**。发布资产（Asset）：**community.example.hello-1.0.0.zip**。其中仅包含 **HelloPlugin.dll**。分离的清单与校验和文件属于发布元数据，并非运行时脚本。GitHub 也会自动生成源码压缩包（Source code）；**切勿安装这些源码包**。
 
-宿主必须显式通过受信任的 HTTPS 地址拉取此索引，校验所选清单以及整个压缩包的 SHA256，暂存该不可变版本，之后由管理员手动启用并重启宿主生效。本仓库不会向正在运行的机器人部署或启用任何插件。宿主需具备插件包加载器（package-loader）支持；CI 中使用的较旧公开宿主快照仅用于验证 API 兼容性，并不代表所有宿主版本均已内置插件市场界面。
+宿主必须显式通过受信任的 HTTPS 地址拉取此索引，校验所选清单以及整个压缩包的 SHA256，暂存该不可变版本，之后由管理员手动启用；是否热应用或需要重启由宿主回执明确告知。本仓库不会向正在运行的机器人部署或启用任何插件。宿主需具备插件包加载器（package-loader）支持；CI 中使用的较旧公开宿主快照仅用于验证 API 兼容性，并不代表所有宿主版本均已内置插件市场界面。
+
+## 中文市场展示（M1）
+
+[展示目录](presentation.json) 与旧技术清单独立演进；详见 [展示契约与兼容边界](docs/presentation.md) 及 [M0/M1 基线](docs/m1-baseline.md)。
+
+- 首批 8 项宿主内置能力 + 1 个真实 Hello 示例包，包含中文用途、配置、兼容性、维护说明与风险提示。
+- 内置能力由宿主实际注册表确认，不带安装包、下载地址或独立安全审核标签；启用状态以宿主为准。
+- Hello 仅演示初始化/关闭生命周期，不提供聊天命令或消息回复；已发布 ZIP 的哈希可复核，但它仍是未审核的进程内 .NET 代码。
+- 旧宿主继续只读技术目录；新宿主在展示文件缺失或无效时回退旧目录，并保留本机内置能力。
+- Python 执行、仓库导入预览、多版本管理、审核撤销强制执行属于后续阶段，当前不宣称支持。
 
 ## 本地构建与验证
 
@@ -26,6 +36,7 @@ python -m pip install -r tools/requirements.txt
 dotnet build examples/HelloPlugin/HelloPlugin.csproj -c Release
 python tools/package.py
 python tools/validate.py --archive artifacts/release/community.example.hello-1.0.0.zip
+python tools/validate_presentation.py
 python -m unittest discover -s tools -p 'test_*.py'
 dotnet run --project tests/ContractProbe -c Release -- sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
 ~~~
