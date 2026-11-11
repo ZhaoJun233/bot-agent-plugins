@@ -44,6 +44,43 @@ class PresentationTests(unittest.TestCase):
         self.document["Entries"].append(copy.deepcopy(self.package))
         self.rejected()
 
+    def multi_version_documents(self):
+        repository = load_document(ROOT / "repository.json")
+        older = copy.deepcopy(repository["Plugins"][0]["Versions"][0])
+        older["Version"] = older["Manifest"]["Version"] = "0.9.0"
+        older["Manifest"]["Sha256"] = "b" * 64
+        older["Manifest"]["DownloadUrl"] = older["Manifest"]["DownloadUrl"].replace("1.0.0", "0.9.0")
+        repository["Plugins"][0]["Versions"].append(older)
+        entry = copy.deepcopy(self.package)
+        entry["Version"] = entry["Metadata"]["Review"]["Version"] = "0.9.0"
+        entry["PackageSha256"] = entry["Metadata"]["Review"]["Sha256"] = "b" * 64
+        self.document["Entries"].append(entry)
+        return repository, entry
+
+    def test_metadata_for_noncurrent_repository_version(self):
+        repository, _ = self.multi_version_documents()
+        self.assertEqual(10, validate_presentation(self.document, self.index, repository))
+
+    def test_old_index_without_repository_does_not_claim_unknown_versions(self):
+        self.multi_version_documents()
+        self.rejected()
+
+    def test_noncurrent_version_still_requires_exact_hash(self):
+        repository, entry = self.multi_version_documents()
+        entry["PackageSha256"] = entry["Metadata"]["Review"]["Sha256"] = "c" * 64
+        with self.assertRaisesRegex(ValueError, "technical catalog"):
+            validate_presentation(self.document, self.index, repository)
+
+    def test_repository_must_preserve_current_catalog(self):
+        repository, _ = self.multi_version_documents()
+        repository["Plugins"][0]["Versions"].pop(0)
+        with self.assertRaisesRegex(ValueError, "preserve"):
+            validate_presentation(self.document, self.index, repository)
+
+    def test_explicit_repository_keeps_current_first_wave(self):
+        repository = load_document(ROOT / "repository.json")
+        self.assertEqual(9, validate_presentation(self.document, self.index, repository))
+
     def test_rejects_hash_mismatch(self):
         self.package["PackageSha256"] = "a" * 64
         self.rejected()

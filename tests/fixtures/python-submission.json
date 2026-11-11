@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "community.example.python-echo",
+    "Version": "1.0.0",
+    "ApiVersion": 2,
+    "MinimumHostVersion": "1.0.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [
+      {
+        "Key": "prefix",
+        "Label": "合成输出前缀",
+        "Type": "string",
+        "Required": false,
+        "DefaultValue": "synthetic"
+      }
+    ],
+    "Sha256": "7651f5e863055f09fb2bfaf5a3ba7a2f2648862eed1ac45823fc7e61d6eb111f",
+    "DownloadUrl": "https://github.com/example/market/releases/download/community.example.python-echo-1.0.0/community.example.python-echo-1.0.0.zip",
+    "Runtime": {
+      "Kind": "python",
+      "ProtocolVersion": 1,
+      "EntryPoint": "worker.py",
+      "MinimumPythonVersion": "3.11",
+      "DependencyMode": "stdlib-only",
+      "Tools": [
+        "echo"
+      ]
+    }
+  },
+  "metadata": {
+    "Name": "Python 回声示例",
+    "Summary": "通过独立 Python 工作进程返回合成文本；只声明 echo 工具。",
+    "Description": "标准库示例展示 SDK 装饰器、配置与生命周期。不联网、不读取聊天记录，进程隔离不等于安全沙箱。",
+    "Category": "开发示例",
+    "Tags": [
+      "example",
+      "python",
+      "stdlib"
+    ],
+    "Author": "BotAgent Plugin Marketplace Contributors",
+    "Repository": "https://github.com/example/market",
+    "License": "MIT",
+    "Runtime": "python",
+    "SourceKind": "community",
+    "Usage": "维护者审核并安装后，在宿主工具目录启用 echo。输入 text 字符串；只用于合成测试。",
+    "RiskNotice": "Python 是本机子进程，不是安全沙箱；不可信代码仍可能访问当前账户可访问的资源。工具 read_only 提示不是授权。",
+    "Configuration": "可选 prefix 文本字段；配置仅传入工作进程，不应记录到日志。",
+    "Compatibility": "需要运营者预先配置 Python 3.11 或更新的 3.x；仅支持标准库，不自动安装依赖。未配置解释器应显示运行时不可用。",
+    "Changelog": "1.0.0：合成 Python echo 示例，独立工作进程协议 v1。",
+    "Maintenance": "本地合成示例；尚未发布远端资产，不用于生产安装。",
+    "PermissionNotes": "技术清单 Permissions、Dependencies 均为空，Settings 仅声明 prefix；这是声明信息，不是操作系统权限沙箱。"
+  }
+}

@@ -295,7 +295,7 @@
           "Status": "unreviewed",
           "Version": "1.0.0",
           "Sha256": "01dccbf848c9c9fbd5797e47a86339b79a4963eb585fc8157ff74768145c50cb",
-          "Notes": "公开 Release ZIP 与索引哈希一致，仅核对产物身份；没有完成安全审核。"
+          "Notes": "未提供独立维护者人工审核记录；校验和匹配不代表代码安全。"
         }
       }
     }

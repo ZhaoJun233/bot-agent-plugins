@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/submission.schema.json",
+  "title": "Canonical per-version community plugin submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "manifest",
+    "metadata"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "manifest": {
+      "oneOf": [
+        {"$ref": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/manifest.schema.json"},
+        {"$ref": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/python-manifest.schema.json"}
+      ]
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Name",
+        "Summary",
+        "Description",
+        "Category",
+        "Author",
+        "License",
+        "Usage",
+        "RiskNotice",
+        "Configuration",
+        "Compatibility",
+        "Changelog",
+        "Maintenance",
+        "PermissionNotes",
+        "Repository",
+        "Tags",
+        "Runtime",
+        "SourceKind"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Summary": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Category": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Author": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "License": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Usage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "RiskNotice": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Configuration": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Compatibility": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Changelog": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Maintenance": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "PermissionNotes": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "Repository": {
+          "type": "string",
+          "pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/?$"
+        },
+        "Tags": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80
+          },
+          "maxItems": 24,
+          "uniqueItems": true
+        },
+        "Runtime": {
+          "enum": ["dotnet", "python"]
+        },
+        "SourceKind": {
+          "const": "community"
+        }
+      }
+    }
+  }
+}

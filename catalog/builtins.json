@@ -1,0 +1,269 @@
+{
+  "SchemaVersion": 1,
+  "Entries": [
+    {
+      "Id": "preset.feature.music",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "点歌与音乐分享",
+        "Category": "音频与媒体",
+        "Summary": "音乐卡片、点歌与音频解析入口。",
+        "Description": "宿主内置音乐能力的开关与配置入口，支持群聊音乐卡片解析及音乐分享；预设自身不包含独立处理器。",
+        "Usage": "在插件配置中启用音乐能力并配置音乐服务，再通过宿主支持的点歌交互使用。",
+        "Configuration": "配置音乐服务地址与相关能力开关；不在市场资料中保存服务密钥。",
+        "RiskNotice": "音乐服务可能联网并处理歌曲请求，实际行为由宿主负责。",
+        "Tags": [
+          "音频与媒体",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.voice",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "语音合成",
+        "Category": "音频与媒体",
+        "Summary": "通过外部 TTS 服务生成语音。",
+        "Description": "提供宿主 TTS 能力的配置入口，支持语音表达及会话级防连发控制，不是本地语音模型安装包。",
+        "Usage": "先配置并启用云端 TTS，再在宿主支持语音的会话中使用。",
+        "Configuration": "配置音色、TTS 服务地址与语音开关；服务凭据从安全配置入口设置。",
+        "RiskNotice": "待合成文本可能发送至外部 TTS 服务；协议端负责语音格式转换。",
+        "Tags": [
+          "音频与媒体",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.stickers",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "表情包",
+        "Category": "会话互动",
+        "Summary": "表情包收录、标签与协同发送入口。",
+        "Description": "宿主可学习收录表情图片、提取标签并按语境发送；预设提供配置入口，魔数校验不是内容安全保证。",
+        "Usage": "在表情包管理与配置入口启用后，按宿主的收录和发送策略使用。",
+        "Configuration": "配置表情包学习、审核与发送策略；请使用合成图片验证。",
+        "RiskNotice": "涉及图片处理与存储；启用前确认图片隐私和内容审核策略。",
+        "Tags": [
+          "会话互动",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.poke",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "戳一戳",
+        "Category": "会话互动",
+        "Summary": "戳一戳事件互动与防刷屏。",
+        "Description": "宿主处理戳一戳事件及消息协议，预设提供这项能力的开关入口。",
+        "Usage": "启用后由支持戳一戳事件的协议端触发互动。",
+        "Configuration": "通过对应插件配置设置启用状态与可用互动选项。",
+        "RiskNotice": "效果依赖协议端能力与宿主防刷屏策略，不保证所有平台支持。",
+        "Tags": [
+          "会话互动",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.vibes",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "群聊氛围",
+        "Category": "会话策略",
+        "Summary": "主动开口与话题互动的配置入口。",
+        "Description": "宿主内置群聊活跃策略入口，结合冷却与话题引导决定互动；并非独立调度插件。",
+        "Usage": "在配置入口启用并设置宿主当前支持的活跃策略。",
+        "Configuration": "使用现有策略设置；本阶段不修改回复节奏、等待或概率契约。",
+        "RiskNotice": "可能增加群聊主动消息；效果由宿主策略决定，勿将配置描述视作精确概率承诺。",
+        "Tags": [
+          "会话策略",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.profiles",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "人物画像",
+        "Category": "记忆与隐私",
+        "Summary": "成员画像与长期记忆配置入口。",
+        "Description": "宿主可抽样整理成员特征并更新长期记忆；预设本身仅提供配置与状态。",
+        "Usage": "了解隐私影响后，在画像相关配置入口启用和管理。",
+        "Configuration": "配置画像开关及宿主提供的采样选项；市场不展示成员档案或原始内容。",
+        "RiskNotice": "涉及真实成员信息和长期存储；仅在有正当权限时启用，验证必须使用合成数据。",
+        "Tags": [
+          "记忆与隐私",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.websearch",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "联网研究与链接摘要",
+        "Category": "检索与工具",
+        "Summary": "联网检索、链接摘要及引用整合。",
+        "Description": "宿主工具链提供网页检索、短文本摘要与引用整合；市场条目不授予额外联网权限。",
+        "Usage": "配置可用的检索服务后，由宿主在允许的任务中调用。",
+        "Configuration": "配置检索服务与联网能力开关；密钥只通过安全设置入口管理。",
+        "RiskNotice": "查询和链接可能交给外部服务，网页内容属于不可信输入。",
+        "Tags": [
+          "检索与工具",
+          "内置"
+        ]
+      }
+    },
+    {
+      "Id": "preset.feature.token-quota",
+      "Version": "1.0.0",
+      "PackageSha256": null,
+      "Metadata": {
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent",
+        "License": "MIT",
+        "Runtime": "builtin",
+        "SourceKind": "builtin",
+        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
+        "Maintenance": "随宿主维护",
+        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
+        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
+        "Review": {
+          "Status": "unreviewed",
+          "Version": "1.0.0",
+          "Sha256": null,
+          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
+        },
+        "Name": "Token 配额",
+        "Category": "用量与治理",
+        "Summary": "限制每日 Token 消耗的宿主记账能力。",
+        "Description": "内置配额守卫维护群聊的日配额与已用额度；不包含独立可下载的计费或支付插件。",
+        "Usage": "在配额配置入口设置上限，宿主按既有记账规则统计。",
+        "Configuration": "配置每日配额和相关启用状态；市场只显示描述，不读取真实群配额。",
+        "RiskNotice": "统计和限额口径依赖宿主记账实现，不是第三方账单或扣费保证。",
+        "Tags": [
+          "用量与治理",
+          "内置"
+        ]
+      }
+    }
+  ]
+}

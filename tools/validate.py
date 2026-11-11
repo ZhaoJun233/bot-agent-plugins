@@ -52,6 +52,11 @@ def validate_manifest(manifest):
         raise ValueError("Manifest too large")
     safe_path(manifest["Id"])
     safe_path(manifest["EntryAssembly"])
+    validate_common_manifest(manifest)
+
+def validate_common_manifest(manifest):
+    """Shared non-runtime semantics after the discriminated schema check."""
+    safe_path(manifest["Id"])
     minimum = manifest.get("MinimumHostVersion")
     if minimum and any(int(part) > 2147483647 for part in minimum.split(".")):
         raise ValueError("Host assembly version component out of range")
@@ -84,32 +89,38 @@ def validate_manifest(manifest):
 
 def validate_index(index):
     schema_validator("index.schema.json").validate(index)
-    pins = set()
     for manifest in index["Plugins"]:
         validate_manifest(manifest)
+    validate_dependency_graph(index["Plugins"])
+
+def validate_dependency_graph(manifests):
+    pins = set()
+    for manifest in manifests:
         pin = (manifest["Id"], manifest["Version"])
         if pin in pins:
             raise ValueError("Duplicate release")
         pins.add(pin)
     graph = {}
-    for manifest in index["Plugins"]:
+    for manifest in manifests:
         node = (manifest["Id"], manifest["Version"])
         graph[node] = [(d["Id"], d["Version"]) for d in manifest.get("Dependencies", [])]
         if any(d not in pins for d in graph[node]):
             raise ValueError("Dependency not pinned in catalog")
-    def visit(node, pending, done):
-        if node in pending:
-            raise ValueError("Dependency cycle")
-        if node in done:
-            return
-        pending.add(node)
-        for dependency in graph[node]:
-            visit(dependency, pending, done)
-        pending.remove(node)
-        done.add(node)
-    done = set()
-    for node in graph:
-        visit(node, set(), done)
+    dependents = {node: [] for node in graph}
+    remaining = {node: len(dependencies) for node, dependencies in graph.items()}
+    for node, dependencies in graph.items():
+        for dependency in dependencies:
+            dependents[dependency].append(node)
+    ready = [node for node, count in remaining.items() if count == 0]
+    visited = 0
+    while ready:
+        visited += 1
+        for dependent in dependents[ready.pop()]:
+            remaining[dependent] -= 1
+            if remaining[dependent] == 0:
+                ready.append(dependent)
+    if visited != len(graph):
+        raise ValueError("Dependency cycle")
 
 
 def validate_archive(path, manifest):

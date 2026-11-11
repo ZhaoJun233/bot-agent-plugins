@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "community.example.hello",
+    "Version": "1.0.0",
+    "EntryAssembly": "HelloPlugin.dll",
+    "EntryType": "Marketplace.Examples.HelloPlugin",
+    "ApiVersion": 1,
+    "TargetFramework": "net8.0",
+    "MinimumHostVersion": "1.0.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [],
+    "Sha256": "01dccbf848c9c9fbd5797e47a86339b79a4963eb585fc8157ff74768145c50cb",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/community.example.hello-1.0.0/community.example.hello-1.0.0.zip"
+  },
+  "metadata": {
+    "Name": "Hello 社区示例",
+    "Summary": "展示插件发现与生命周期的最小 .NET 示例。",
+    "Description": "实现初始化与关闭生命周期；不注册命令、不发送消息、不注册后台任务，也不验证所有宿主钩子能力。",
+    "Category": "开发示例",
+    "Tags": [
+      "示例",
+      ".NET",
+      "生命周期"
+    ],
+    "Author": "BotAgent Plugin Marketplace Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Runtime": "dotnet",
+    "SourceKind": "community",
+    "Usage": "在隔离的合成测试环境中安装，用来理解目录发现、加载与卸载；不会在聊天中回复 Hello。",
+    "RiskNotice": ".NET 插件运行在宿主进程内；声明权限为空不等于进程隔离或代码安全。仅检查下载哈希不构成安全审核。",
+    "Configuration": "没有声明式设置项；不需要也不应填入任何真实凭据。",
+    "Compatibility": "技术清单为 Plugin API v1、net8.0、最低宿主 1.0.0；当前宿主声明支持 net8.0/net10.0。以安装预检结果为准，不保证所有宿主版本。",
+    "Changelog": "1.0.0：最小生命周期示例。已有包与清单保持不变，本阶段新增中文市场资料。",
+    "Maintenance": "示例随市场仓库维护；无稳定业务功能承诺",
+    "PermissionNotes": "技术清单 Permissions、Dependencies、Settings 均为空；这是声明信息，不是 CLR 权限沙箱。"
+  }
+}

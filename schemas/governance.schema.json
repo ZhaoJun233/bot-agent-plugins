@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BotAgent governance feed v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "generatedAt",
+    "entries"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "generatedAt": {
+      "$ref": "#/$defs/utc"
+    },
+    "entries": {
+      "type": "array",
+      "maxItems": 1024,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "version",
+          "sha256",
+          "status",
+          "reason",
+          "updatedAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9.-]{0,79}$"
+          },
+          "version": {
+            "type": "string",
+            "maxLength": 96
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "enum": [
+              "deprecated",
+              "withdrawn",
+              "revoked"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "not": {
+              "pattern": "[\\u0000-\\u001F\\u007F-\\u009F\\uD800-\\uDFFF]"
+            },
+            "description": "Public-safe Unicode, no control characters or surrogate code points. Validator additionally limits the value to 500 UTF-16 code units to match the host."
+          },
+          "updatedAt": {
+            "$ref": "#/$defs/utc"
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,7})?Z$"
+    }
+  }
+}

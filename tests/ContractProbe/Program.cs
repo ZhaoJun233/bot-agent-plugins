@@ -1,15 +1,20 @@
 using System.Reflection;
 using System.Runtime.Loader;
 
-if (args.Length != 2) throw new ArgumentException("Usage: ContractProbe <host-core.dll> <plugin.dll>");
+// Maintainer-only: reflection below executes the selected plugin. Never run on a contributor PR.
+if (args.Length != 2 && args.Length != 5)
+    throw new ArgumentException("Usage: ContractProbe <host-core.dll> <plugin.dll> [<entry-type> <id> <version>]");
+var entryType = args.Length == 5 ? args[2] : "Marketplace.Examples.HelloPlugin";
+var expectedId = args.Length == 5 ? args[3] : "community.example.hello";
+var expectedVersion = args.Length == 5 ? args[4] : "1.0.0";
 var core = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(args[0]));
 var contract = core.GetType("BotAgent.Domain.Plugins.IBotPlugin", throwOnError: true)!;
 var contextType = core.GetType("BotAgent.Domain.Plugins.PluginContext", throwOnError: true)!;
 var pluginAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(Path.GetFullPath(args[1]));
-var type = pluginAssembly.GetType("Marketplace.Examples.HelloPlugin", throwOnError: true)!;
+var type = pluginAssembly.GetType(entryType, throwOnError: true)!;
 if (!contract.IsAssignableFrom(type)) throw new InvalidOperationException("Host contract mismatch.");
 var plugin = Activator.CreateInstance(type)!;
-foreach (var (property, expected) in new[] { ("Id", "community.example.hello"), ("Version", "1.0.0") })
+foreach (var (property, expected) in new[] { ("Id", expectedId), ("Version", expectedVersion) })
     if (!Equals(contract.GetProperty(property)!.GetValue(plugin), expected))
         throw new InvalidOperationException($"Metadata mismatch: {property}");
 if (!Equals(contract.GetProperty("IsPreset")!.GetValue(plugin), false))

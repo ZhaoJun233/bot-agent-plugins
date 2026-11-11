@@ -1,0 +1,140 @@
+name: Protected marketplace approval
+run-name: Review PR ${{ inputs.pr_number }} at ${{ inputs.candidate_sha }}
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: Pull request to review
+        required: true
+        type: string
+      base_sha:
+        description: Exact current main commit
+        required: true
+        type: string
+      candidate_sha:
+        description: Exact candidate head commit
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: marketplace-review-${{ inputs.pr_number }}
+  cancel-in-progress: true
+jobs:
+  prepare:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: trusted
+    outputs:
+      lane: ${{ steps.route.outputs.lane }}
+      head_repository: ${{ steps.snapshot.outputs.head_repository }}
+      governance_stamp: ${{ steps.route.outputs.governance_stamp }}
+    steps:
+      - name: Require the current protected base workflow
+        working-directory: .
+        env:
+          APPROVED_BASE: ${{ inputs.base_sha }}
+        run: test "$GITHUB_SHA" = "$APPROVED_BASE"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.sha }}
+          path: trusted
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.13'
+      - run: python -m pip install --disable-pip-version-check -r tools/requirements.txt
+      - id: snapshot
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          BASE_SHA: ${{ inputs.base_sha }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python tools/marketplace_gate.py inspect --repository "$GITHUB_REPOSITORY" --pr "$PR_NUMBER" --base-sha "$BASE_SHA" --candidate-sha "$CANDIDATE_SHA"
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: ${{ steps.snapshot.outputs.head_repository }}
+          ref: ${{ inputs.candidate_sha }}
+          path: candidate
+          persist-credentials: false
+          submodules: false
+          lfs: false
+      - id: route
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+          PYTHONPATH: ''
+        run: python tools/marketplace_gate.py validate --base . --candidate ../candidate
+  tooling:
+    needs: prepare
+    if: needs.prepare.outputs.lane == 'tooling'
+    permissions:
+      contents: read
+    uses: ./.github/workflows/tooling.yml
+    with:
+      candidate_sha: ${{ inputs.candidate_sha }}
+      candidate_repository: ${{ needs.prepare.outputs.head_repository }}
+  approve-candidate:
+    needs: [prepare, tooling]
+    if: always() && needs.prepare.result == 'success' && (needs.prepare.outputs.lane != 'tooling' || needs.tooling.result == 'success')
+    # Single-maintainer configuration: required reviewer is the owner, with
+    # self-review allowed. No bot calls approval or merge APIs.
+    environment: marketplace-review
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: read
+      statuses: write
+    steps:
+      # No checkout, downloaded scripts or candidate artifacts in this job.
+      - name: Recheck approved identity and publish the candidate gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          BASE_SHA: ${{ inputs.base_sha }}
+          CANDIDATE_SHA: ${{ inputs.candidate_sha }}
+          GOVERNANCE_STAMP: ${{ needs.prepare.outputs.governance_stamp }}
+        run: |
+          python3 - <<'PY'
+          import datetime, json, os, re, urllib.request
+          repository = os.environ['GITHUB_REPOSITORY']
+          base, head = os.environ['BASE_SHA'], os.environ['CANDIDATE_SHA']
+          number = os.environ['PR_NUMBER']
+          if not re.fullmatch(r'[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+', repository) or not re.fullmatch(r'[1-9][0-9]*', number):
+              raise SystemExit('Invalid repository or PR number')
+          if not all(re.fullmatch(r'[0-9a-f]{40}', value) for value in (base, head)) or os.environ['GITHUB_SHA'] != base:
+              raise SystemExit('Approval must use its exact protected base and candidate')
+          stamp = os.environ.get('GOVERNANCE_STAMP')
+          if stamp:
+              age = datetime.datetime.now(datetime.timezone.utc) - datetime.datetime.fromisoformat(stamp.replace('Z', '+00:00'))
+              if age.total_seconds() > 86400 or age.total_seconds() < -300:
+                  raise SystemExit('Governance timestamp requires a fresh candidate and approval')
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *args, **kwargs):
+                  return None
+          opener = urllib.request.build_opener(NoRedirect())
+          def request(path, data=None):
+              payload = None if data is None else json.dumps(data).encode()
+              req = urllib.request.Request('https://api.github.com/repos/' + repository + path, data=payload,
+                  headers={'Authorization': 'Bearer ' + os.environ['GH_TOKEN'], 'Accept': 'application/vnd.github+json',
+                           'Content-Type': 'application/json', 'Cache-Control': 'no-cache', 'X-GitHub-Api-Version': '2022-11-28'})
+              with opener.open(req, timeout=30) as response:
+                  payload = response.read(4 * 1024 * 1024 + 1)
+              if len(payload) > 4 * 1024 * 1024:
+                  raise SystemExit('API response exceeds limit')
+              return json.loads(payload)
+          pull = request('/pulls/' + number)
+          if (pull['state'] != 'open' or pull['base']['repo']['full_name'] != repository
+              or pull['base']['sha'] != base or pull['head']['sha'] != head
+              or pull['base']['ref'] != pull['base']['repo']['default_branch']):
+              raise SystemExit('PR changed after review; approve its current candidate')
+          request('/statuses/' + head, {'state': 'success', 'context': 'marketplace-gate',
+              'description': 'Approved PR ' + number + ' base ' + base,
+              'target_url': 'https://github.com/' + repository + '/actions/runs/' + os.environ['GITHUB_RUN_ID']})
+          PY

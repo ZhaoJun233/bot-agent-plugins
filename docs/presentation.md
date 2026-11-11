@@ -8,6 +8,8 @@
 
 `Metadata` 包含 Name、Summary、Description、Category、Tags、Author、Repository、License、Usage、Configuration、Compatibility、Changelog、Maintenance、PermissionNotes、RiskNotice、Runtime、SourceKind、Review。中文名称、介绍、用法、配置、兼容性、更新和风险说明为首要内容；标识符与技术版本保留原值。仓库链接限无用户信息的 GitHub HTTPS 仓库地址，不渲染任意 HTML。
 
+M2 候选补充：如果存在 [多版本描述](<repository.md>)，发布侧也接受非当前版本的精确清单 pin；旧索引清单必须完整保留。描述缺失时仍按旧索引验证。任意外部仓库通过导入自称“官方/已审核”并不可信，宿主应投影为社区/未审核；这与管理员配置的受信任市场目录来源不同。
+
 ## 身份与来源
 
 - `Runtime`: builtin / dotnet / python；`SourceKind`: builtin / official / community。Python 是预留的展示词汇，不表示当前目录或宿主能够安装运行 Python。当前技术清单只接受 .NET 包。

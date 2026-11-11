@@ -15,11 +15,21 @@ A public, version-pinned catalog of community plugins (listing does not imply se
 
 Release tag: **community.example.hello-1.0.0**. Asset: **community.example.hello-1.0.0.zip**. It contains only **HelloPlugin.dll**. The detached manifest and checksum file are release metadata, not runtime scripts. GitHub also generates source archives; **do not install those**.
 
-A host must fetch this index explicitly from a trusted HTTPS location, validate the selected manifest and full archive SHA256, stage the immutable version, then require operator enablement. The host receipt states whether changes were hot-applied or require restart. This repository does not deploy or turn on any plugin on a running bot. A host with package-loader support is required; the older public host snapshot used by CI proves API compatibility only, not marketplace availability.
+A host must fetch this index explicitly from a trusted HTTPS location, validate the selected manifest and full archive SHA256, stage the immutable version, then require operator enablement. The host receipt states whether changes were hot-applied or require restart. This repository does not deploy or turn on any plugin on a running bot. A host with package-loader support is required; the older public host snapshot used in historical maintainer checks concerns API compatibility only, not marketplace availability.
 
 ## Chinese presentation (M1)
 
 The optional [presentation catalog](presentation.json) describes eight host-bundled features and one real, inert Hello package. It does not modify technical manifests. Actual host registration determines builtin identity and enabled state; builtins are not downloadable packages or independently reviewed artifacts. Hello is explicitly **unreviewed**: matching a published ZIP checksum is not a security audit. See the [presentation contract](docs/presentation.md) and [frozen baseline](docs/m1-baseline.md). Older hosts ignore the sidecar; newer hosts fall back safely when it is unavailable or invalid. Python execution, repository import previews, and enforced review revocation are not implemented in this milestone.
+
+## M2 import candidate contract
+
+The optional [multi-version repository descriptor](<docs/repository.md>) is additive; the old index and manifest schemas stay unchanged. This branch advertises only the real published Hello 1.0.0. Multiple-plugin/version behavior uses synthetic fixtures, not fabricated releases. M2-capable hosts select a candidate, obtain a read-only preview, then confirm that exact preview. Self-declared reviews from arbitrary repositories do not confer trust. This change does not deploy a host, implement Python execution, or complete lifecycle and governance work.
+
+## M4 canonical submissions, review and governance
+
+See the [M4 contract and remaining gaps](docs/m4-market.md) and [contribution checklist](CONTRIBUTING.en.md). Contributor CI runs only trusted-base validation against candidate data; it never builds or executes plugins. Human GitHub protections, the actual-public-host matrix and live publication are not established by local tests. Earlier milestone descriptions are historical, not the current governance contract.
+
+The [operations runbook](docs/marketplace-operations.md) defines single-maintainer approval, three PR lanes, exact-candidate checks and governance refreshes. Source S, approved artifact H and catalog C are distinct; publish and independently download H before merging C. Python feeds remain empty until real assets pass this process.
 
 ## Build and verify locally
 
@@ -30,15 +40,20 @@ python -m pip install -r tools/requirements.txt
 dotnet build examples/HelloPlugin/HelloPlugin.csproj -c Release
 python tools/package.py
 python tools/validate.py --archive artifacts/release/community.example.hello-1.0.0.zip
+python tools/validate_repository.py
 python tools/validate_presentation.py
 python -m unittest discover -s tools -p 'test_*.py'
 dotnet run --project tests/ContractProbe -c Release -- sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
 ~~~
 
-[CI](.github/workflows/validate.yml) also builds the template and probes against an actual public BotAgent.Core build at a pinned public commit. It compares rebuilt ZIP bytes with the catalog hash; it never rewrites a catalog pin. No token is needed to build. The compile-time [SDK shim](sdk/README.en.md) is not the host implementation and must never be placed in a plugin ZIP.
+[Contributor CI](.github/workflows/validate.yml) validates data only. Template builds, actual-public-host probes and artifact verification belong to a separate reviewed maintainer environment; the current local smoke used the SDK shim, not the public host. Packaging checks never rewrite a catalog pin. No token is needed to build. The compile-time [SDK shim](sdk/README.en.md) is not the host implementation and must never be placed in a plugin ZIP.
 
 ## Author a plugin
 
-Copy [the template](templates/PluginTemplate/Plugin.cs) and its [project file](templates/PluginTemplate/PluginTemplate.csproj), choose a unique non-preset ID, implement IBotPlugin, and set IsPreset to false. Read the [SDK guide](sdk/README.en.md). Package only reviewed compiled plugin assemblies, publish a fixed release tag and immutable asset, then submit the complete manifest and index change by PR. Settings are declarative metadata; secrets never belong in public defaults. Dependencies are exact pins, not auto-install instructions.
+Copy [the template](templates/PluginTemplate/Plugin.cs) and its [project file](templates/PluginTemplate/PluginTemplate.csproj), choose a unique non-preset ID, implement IBotPlugin, and set IsPreset to false. Read the [SDK guide](sdk/README.en.md). Package only reviewed compiled plugin assemblies, publish a fixed release tag and immutable asset, then submit canonical submission JSON and its generated catalog diff by PR. Settings are declarative metadata; secrets never belong in public defaults. Dependencies are exact pins, not auto-install instructions.
 
 License: MIT. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+## Python workers (M5)
+
+See the [Python author/runtime guide](<docs/python-worker.md>) for the strict API 2 discriminant, separate Python feed, canonical host SDK packaging, operator-provisioned interpreter, stdlib-only limitations, and secretless data-only review lane. Process isolation is not a sandbox; no pip or candidate package execution occurs during validation.
