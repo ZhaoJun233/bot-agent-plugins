@@ -6,7 +6,7 @@
 
 1. 固定 bootstrap PR 的 base/head，完成生成器、原生测试、旧版及当前真实宿主 ABI 检查，并由维护者审核准确提交。bootstrap 同时引入工具和初始规范目录，是唯一的一次性混合变更；后续 PR 必须按下面三类分开。
 2. 合并 bootstrap 后配置 main：要求 PR，必需状态为 GitHub Actions 的 `marketplace-gate`，要求基于最新 base；禁止强推和删除。要求他人批准的数量为 0，不要求单维护者无法满足的第二人审批。
-3. 创建 `marketplace-review` environment，指定维护者为 required reviewer，允许 self-review，不允许管理员绕过该 gate。记录设置的 API 回读结果；文档和 YAML 不代表配置已经生效。
+3. 创建 `marketplace-review` environment，指定维护者为 required reviewer，允许 self-review，并按维护者决定保留管理员绕过审核。记录设置的 API 回读结果；文档和 YAML 不代表配置已经生效。
 4. Actions 默认 token 保持 read。允许 GitHub Actions 创建 PR 的仓库开关也允许其提交 approve review；本工具仅创建/更新 PR，从不调用 approve、merge API。只有治理准备 job 获得 contents/pull-requests/issues/actions write，最终 gate job 仅有 statuses write。
 5. 为新 Release 启用不可变发布。已有 Hello 1.0.0 不重新上传、不移动 tag，以原固定 SHA256 核验。不可变设置不追溯证明旧 Release 不可变。
 
