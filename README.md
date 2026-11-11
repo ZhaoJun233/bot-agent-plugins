@@ -12,6 +12,7 @@
 - [清单 Schema](schemas/manifest.schema.json) 与 [索引 Schema](schemas/index.schema.json)：基于 JSON Schema draft 2020-12。
 - [契约规范](docs/contract.md)、[安全与隐私策略](SECURITY.md) 以及 [贡献与发布流程](CONTRIBUTING.md)。
 - [Hello 示例插件](examples/HelloPlugin/HelloPlugin.cs)：故意设计为无副作用的纯生命周期示例；不收发消息、不读写文件、不发起网络请求、不启动定时器，也不访问任何宿主服务。其[清单文件](plugins/community.example.hello/1.0.0/manifest.json)包含真实的 ZIP SHA256 校验和，而非占位符。
+- [Hello 1.0.1 源码候选](examples/HelloPlugin-1.0.1/README.md)：独立版本目录，仅变更版本标识；源码和构建产物不代表已经发布或收录。旧 1.0.0 目录与资产保持不变。
 
 发布 Tag：**community.example.hello-1.0.0**。发布资产（Asset）：**community.example.hello-1.0.0.zip**。其中仅包含 **HelloPlugin.dll**。分离的清单与校验和文件属于发布元数据，并非运行时脚本。GitHub 也会自动生成源码压缩包（Source code）；**切勿安装这些源码包**。
 
