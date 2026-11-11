@@ -54,9 +54,9 @@ def candidate_governance_stamp(base, candidate):
 
 def verify_premerge(api, number, base_sha, candidate_sha, now=None):
     pull = verify_pull_request(api, number, base_sha, candidate_sha)
-    statuses = api.get("/commits/" + candidate_sha + "/status")["statuses"]
+    statuses = api.get("/commits/" + candidate_sha + "/statuses")
     gate = next((item for item in statuses if item["context"] == "marketplace-gate"), None)
-    if not gate or gate["state"] != "success" or gate["creator"]["login"] != "github-actions[bot]":
+    if not gate or gate["state"] != "success" or (gate.get("creator") or {}).get("login") != "github-actions[bot]":
         raise ValueError("Exact candidate has no successful owner gate")
     if gate.get("description") != f"Approved PR {number} base {base_sha}":
         raise ValueError("Gate approval belongs to a different PR or base")

@@ -17,8 +17,8 @@ class FakeGitHub:
         self.status["description"] = "Approved PR 17 base " + "a" * 40
         self.changed_stamp = "2026-01-04T00:00:00Z"
     def get(self, path):
-        if path.endswith("/status"):
-            return {"statuses": [self.status]}
+        if path.endswith("/statuses"):
+            return [self.status]
         return copy.deepcopy(self.pull)
     def file(self, path, revision):
         stamp = self.changed_stamp if revision == "b" * 40 else "2026-01-01T00:00:00Z"
