@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "community.example.hello",
+  "version": "1.0.1",
+  "sha256": "eb60d54ce7a0d889992ff623885bb7ed7429a2232dfd403b91821eddf18e6214",
+  "sourceRevision": "9025491d051d894f161565a225c2e7dbc66abefd",
+  "reviewer": "ZhaoJun233",
+  "reviewedAt": "2026-11-11T13:09:31Z",
+  "evidence": [
+    "https://github.com/ZhaoJun233/bot-agent-plugins/releases/tag/community.example.hello-1.0.1",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/pull/3",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/actions/runs/43024876825"
+  ],
+  "notes": "维护者已批准固定源码和发布产物；不可变 Release 的独立下载、完整清单、ZIP、版本与真实 Core 初始化/关闭检查已通过。声明权限和校验和不代表进程沙箱或整体安全验收。"
+}

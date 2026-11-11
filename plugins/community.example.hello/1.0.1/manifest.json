@@ -1,0 +1,14 @@
+{
+  "Id": "community.example.hello",
+  "Version": "1.0.1",
+  "EntryAssembly": "HelloPlugin.dll",
+  "EntryType": "Marketplace.Examples.HelloPlugin",
+  "ApiVersion": 1,
+  "TargetFramework": "net8.0",
+  "MinimumHostVersion": "1.0.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "Sha256": "eb60d54ce7a0d889992ff623885bb7ed7429a2232dfd403b91821eddf18e6214",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/community.example.hello-1.0.1/community.example.hello-1.0.1.zip"
+}
