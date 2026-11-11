@@ -54,19 +54,41 @@ jobs:
           persist-credentials: false
       - run: python -m pip install --disable-pip-version-check -r tools/requirements.txt
       - run: dotnet build examples/HelloPlugin/HelloPlugin.csproj -c Release
+      - run: dotnet build examples/HelloPlugin-1.0.1/HelloPlugin.csproj -c Release
       - run: dotnet build templates/PluginTemplate/PluginTemplate.csproj -c Release -p:BotAgentCorePath="$GITHUB_WORKSPACE/candidate/sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll"
       - run: python tools/package.py --input examples/HelloPlugin/bin/Release/net8.0 --manifest submissions/community.example.hello/1.0.0.json --output artifacts/release --check-catalog
+      - name: Prepare the new version packaging input
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('submissions/community.example.hello/1.0.0.json').read_text(encoding='utf-8'))['manifest']
+          manifest.update(json.loads(Path('examples/HelloPlugin-1.0.1/plugin.json').read_text(encoding='utf-8')))
+          pin = manifest['Id'] + '-' + manifest['Version']
+          manifest['DownloadUrl'] = 'https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/' + pin + '/' + pin + '.zip'
+          Path('artifacts/hello-1.0.1-input.json').write_text(json.dumps(manifest), encoding='utf-8')
+          PY
+      - run: python tools/package.py --input examples/HelloPlugin-1.0.1/bin/Release/net8.0 --manifest artifacts/hello-1.0.1-input.json --output artifacts/hello-1.0.1-release
       - run: python tools/generate_catalog.py --check
       - run: python -m unittest discover -s tools -p 'test_*.py'
       - run: dotnet build artifacts/host-reference/src/BotAgent.Core/BotAgent.Core.csproj -c Release
       - run: dotnet run --project tests/ContractProbe -c Release -- artifacts/host-reference/src/BotAgent.Core/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
+      - name: New version against actual net8 Core
+        run: dotnet run --project tests/ContractProbe -c Release -- artifacts/host-reference/src/BotAgent.Core/bin/Release/net8.0/BotAgent.Core.dll examples/HelloPlugin-1.0.1/bin/Release/net8.0/HelloPlugin.dll Marketplace.Examples.HelloPlugin community.example.hello 1.0.1
       - run: dotnet build artifacts/host-current/src/BotAgent.Core/BotAgent.Core.csproj -c Release
       - name: Build current-runtime contract probe
         run: dotnet build tests/ContractProbe -c Release -p:ProbeTargetFramework=net10.0
       - name: Current runtime probe against actual current Core
         run: dotnet tests/ContractProbe/bin/Release/net10.0/ContractProbe.dll artifacts/host-current/src/BotAgent.Core/bin/Release/net10.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
+      - name: New version against actual net10 Core
+        run: dotnet tests/ContractProbe/bin/Release/net10.0/ContractProbe.dll artifacts/host-current/src/BotAgent.Core/bin/Release/net10.0/BotAgent.Core.dll examples/HelloPlugin-1.0.1/bin/Release/net8.0/HelloPlugin.dll Marketplace.Examples.HelloPlugin community.example.hello 1.0.1
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: verified-example-release
           path: candidate/artifacts/release/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verified-hello-1.0.1-candidate
+          path: candidate/artifacts/hello-1.0.1-release/
           if-no-files-found: error
