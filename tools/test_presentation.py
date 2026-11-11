@@ -6,13 +6,15 @@ from unittest.mock import patch
 
 import jsonschema
 
-from validate_presentation import ROOT, load_document, validate_presentation
+from catalog_test_fixture import first_wave_catalog
+from validate_presentation import load_document, validate_presentation
 
 
 class PresentationTests(unittest.TestCase):
     def setUp(self):
-        self.document = load_document(ROOT / "presentation.json")
-        self.index = load_document(ROOT / "index.json")
+        self.root = first_wave_catalog(self)
+        self.document = load_document(self.root / "presentation.json")
+        self.index = load_document(self.root / "index.json")
         self.package = next(e for e in self.document["Entries"] if e["PackageSha256"])
         self.builtin = next(e for e in self.document["Entries"] if e["PackageSha256"] is None)
 
@@ -45,7 +47,7 @@ class PresentationTests(unittest.TestCase):
         self.rejected()
 
     def multi_version_documents(self):
-        repository = load_document(ROOT / "repository.json")
+        repository = load_document(self.root / "repository.json")
         older = copy.deepcopy(repository["Plugins"][0]["Versions"][0])
         older["Version"] = older["Manifest"]["Version"] = "0.9.0"
         older["Manifest"]["Sha256"] = "b" * 64
@@ -78,7 +80,7 @@ class PresentationTests(unittest.TestCase):
             validate_presentation(self.document, self.index, repository)
 
     def test_explicit_repository_keeps_current_first_wave(self):
-        repository = load_document(ROOT / "repository.json")
+        repository = load_document(self.root / "repository.json")
         self.assertEqual(9, validate_presentation(self.document, self.index, repository))
 
     def test_rejects_hash_mismatch(self):

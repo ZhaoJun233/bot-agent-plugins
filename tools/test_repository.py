@@ -7,6 +7,7 @@ from pathlib import Path
 import jsonschema
 
 from validate import ROOT, load_json
+from catalog_test_fixture import first_wave_catalog
 from validate_repository import (load_repository, validate_repository,
                                  validate_catalog_consistency, validate_manifest_files)
 
@@ -44,11 +45,12 @@ class RepositoryTests(unittest.TestCase):
                           ("community.example.beta", "1.0.0")},
                          {(m["Id"], m["Version"]) for m in manifests})
 
-    def test_real_repository_preserves_existing_catalog_and_files(self):
-        manifests = validate_repository(load_repository(ROOT / "repository.json"))
+    def test_first_wave_repository_preserves_catalog_and_files(self):
+        root = first_wave_catalog(self)
+        manifests = validate_repository(load_repository(root / "repository.json"))
         self.assertEqual(1, len(manifests))
-        validate_catalog_consistency(manifests, load_json(ROOT / "index.json"))
-        validate_manifest_files(manifests, ROOT)
+        validate_catalog_consistency(manifests, load_json(root / "index.json"))
+        validate_manifest_files(manifests, root)
 
     def test_legacy_optional_fields_remain_optional(self):
         for key in ("Permissions", "Dependencies", "Settings", "TargetFramework", "MinimumHostVersion"):
