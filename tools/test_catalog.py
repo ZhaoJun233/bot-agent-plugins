@@ -77,6 +77,32 @@ class CatalogTests(unittest.TestCase):
         self.assertEqual(8, validate_candidate(self.base, self.candidate)[1])
         repository = document(self.candidate / "repository.json")
         self.assertEqual(2, len(repository["Plugins"][0]["Versions"]))
+        self.assertEqual(["1.1.0"], [m["Version"] for m in document(self.candidate / "index.json")["Plugins"]])
+
+    def test_legacy_current_versions_use_semver_and_keep_complete_repository(self):
+        for version in ("1.9.0", "1.10.0-rc.2", "1.10.0-rc.10", "1.10.0"):
+            record = copy.deepcopy(self.record)
+            record["manifest"]["Version"] = version
+            record["manifest"]["DownloadUrl"] = record["manifest"]["DownloadUrl"].replace("1.0.0", version)
+            self.put("submissions/%s/%s.json" % (IDENTITY[0], version), record)
+        dependent = copy.deepcopy(self.record)
+        dependent["manifest"]["Id"] = "community.example.dependent"
+        dependent["manifest"]["DownloadUrl"] = dependent["manifest"]["DownloadUrl"].replace(IDENTITY[0], dependent["manifest"]["Id"])
+        dependent["manifest"]["Dependencies"] = [{"Id": IDENTITY[0], "Version": "1.0.0"}]
+        self.put("submissions/community.example.dependent/1.0.0.json", dependent)
+        output = generate(self.candidate)
+        self.assertEqual([(IDENTITY[0], "1.10.0")], [(m["Id"], m["Version"]) for m in json.loads(output["index.json"])["Plugins"]])
+        groups = json.loads(output["repository.json"])["Plugins"]
+        self.assertEqual(6, sum(len(group["Versions"]) for group in groups))
+        self.assertIn("community.example.dependent", [group["Id"] for group in groups])
+
+    def test_api_one_float_cannot_mutate_or_create_canonical_manifest(self):
+        self.record["manifest"]["ApiVersion"] = 1.0
+        self.put(SUBMISSION, self.record)
+        with self.assertRaisesRegex(ValueError, "exact integer"):
+            generate(self.candidate)
+        with self.assertRaisesRegex(ValueError, "exact integer"):
+            validate_candidate(self.base, self.candidate)
 
     def test_submission_review_smuggling_rejected(self):
         for field in ("Review", "review", "Verified", "Status"):

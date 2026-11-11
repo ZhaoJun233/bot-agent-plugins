@@ -39,6 +39,16 @@ class RefreshTests(unittest.TestCase):
     def test_current_publication_does_not_create_new_candidate(self):
         self.assertIsNone(prepare(dict.fromkeys(FILES, feed()), START + datetime.timedelta(hours=71)))
 
+    def test_valid_ledger_order_does_not_change_bytes_or_block_refresh(self):
+        entries = [{"id": "example." + name, "version": "1.0.0", "sha256": "a" * 64,
+                    "status": "revoked", "reason": "Synthetic denial", "updatedAt": "2026-01-01T00:00:00Z"}
+                   for name in ("zeta", "alpha")]
+        documents = {FILES[0]: feed(entries=entries), FILES[1]: feed(entries=entries[::-1])}
+        updates = prepare(documents, START + datetime.timedelta(hours=73))
+        for path in FILES:
+            timestamp_only(documents[path], updates[path])
+            self.assertEqual(parse(documents[path])["entries"], parse(updates[path])["entries"])
+
     def test_ledger_feed_disagreement_and_extra_files_rejected(self):
         for documents in ({FILES[0]: feed(), FILES[1]: feed("2026-01-02T00:00:00Z")},
                           {**dict.fromkeys(FILES, feed()), "index.json": b"{}"}):
@@ -139,6 +149,27 @@ class MaintenanceTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "preserve"):
             prior_refresh(api, "main", api.base)
         self.assertEqual([], api.calls)
+
+    def test_base_advance_preserves_pending_sha_and_reports_block(self):
+        api = FakeApi()
+        self.pending(api, "2026-01-04T00:00:00Z")
+        api.compare["merge_base_commit"]["sha"] = "c" * 40
+        with self.assertRaisesRegex(ValueError, "base changed"):
+            maintain(api, lambda *_: feed(), START + datetime.timedelta(hours=73))
+        self.assertFalse(any(path.startswith("/git/") or path.endswith("/dispatches") for _, path, _ in api.calls))
+        self.assertEqual(api.head, api.reference["object"]["sha"])
+        self.assertIn("refresh_blocked", api.issues[0]["body"])
+
+    def test_invalid_ledger_keeps_alert_open_and_never_prepares(self):
+        api = FakeApi()
+        report_state(api, "expired")
+        api.calls.clear()
+        api.documents[FILES[0]] = feed("2026-01-02T00:00:00Z")
+        self.assertEqual({"state": "source_invalid"}, maintain(api, lambda *_: feed(), START + datetime.timedelta(hours=73)))
+        self.assertEqual("open", api.issues[0]["state"])
+        self.assertIn("source_invalid", api.issues[0]["body"])
+        self.assertFalse(any(data.get("state") == "closed" for _, _, data in api.calls))
+        self.assertFalse(any(path.startswith("/git/") for _, path, _ in api.calls))
 
     def test_aged_pending_candidate_gets_new_sha_without_force_or_new_pr(self):
         api = FakeApi()

@@ -87,6 +87,29 @@ def serialize(value):
     return json.dumps(value, ensure_ascii=False, indent=2) + "\n"
 
 
+def current_managed_versions(manifests):
+    """One SemVer maximum per ID, retaining a closed legacy dependency graph."""
+    def version_key(manifest):
+        core, separator, prerelease = manifest["Version"].partition("-")
+        suffix = tuple((0, int(part)) if part.isdigit() else (1, part)
+                       for part in prerelease.split(".")) if separator else ()
+        return (*map(int, core.split(".")), not separator, suffix)
+
+    current = {}
+    for manifest in manifests:
+        previous = current.get(manifest["Id"])
+        if previous is None or version_key(manifest) > version_key(previous):
+            current[manifest["Id"]] = manifest
+    while True:
+        blocked = [plugin_id for plugin_id, manifest in current.items() if any(
+            current.get(dependency["Id"], {}).get("Version") != dependency["Version"]
+            for dependency in manifest.get("Dependencies", []))]
+        if not blocked:
+            return [current[plugin_id] for plugin_id in sorted(current)]
+        for plugin_id in blocked:
+            del current[plugin_id]
+
+
 def generate(root):
     """Return a complete output mapping. Validate everything before any writes."""
     root = Path(root)
@@ -143,7 +166,7 @@ def generate(root):
         {"Id": plugin_id, "Versions": [m for m in python if m["Id"] == plugin_id]}
         for plugin_id in sorted({m["Id"] for m in python})]}
     validate_python_repository(python_repository)
-    index = {"SchemaVersion": 1, "Plugins": manifests}
+    index = {"SchemaVersion": 1, "Plugins": current_managed_versions(manifests)}
     validate_index(index)
     repository_plugins = {}
     for manifest in manifests:

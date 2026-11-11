@@ -6,6 +6,8 @@ import json
 import re
 from pathlib import Path
 
+from jsonschema import ValidationError
+
 from generate_catalog import _invalid_json, _unique_keys
 from validate_governance import validate_governance
 
@@ -14,6 +16,10 @@ ALERT_AFTER_HOURS = 120
 APPROVAL_MAX_AGE_HOURS = 24
 FILES = ("governance/ledger.json", "governance.json")
 STAMP_FIELD = re.compile(rb'("generatedAt"[ \t\r\n]*:[ \t\r\n]*)"[^"\r\n]*"')
+
+
+class GovernanceSourceError(ValueError):
+    pass
 
 
 def utc(value):
@@ -67,8 +73,16 @@ def timestamp_only(before, after):
 
 
 def prepare(documents, now):
-    if set(documents) != set(FILES) or parse(documents[FILES[0]]) != parse(documents[FILES[1]]):
-        raise ValueError("Ledger and published governance must agree")
+    try:
+        if set(documents) != set(FILES):
+            raise ValueError("Exactly the two governance files are required")
+        values = [parse(documents[path]) for path in FILES]
+        for value in values:
+            value["entries"].sort(key=lambda item: (item["id"], item["version"], item["sha256"]))
+        if values[0] != values[1]:
+            raise ValueError("Ledger and published governance must agree")
+    except (ValueError, KeyError, UnicodeError, ValidationError) as error:
+        raise GovernanceSourceError(str(error)) from None
     if publication_state(documents[FILES[1]], now) == "current":
         return None
     stamp = now.astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")

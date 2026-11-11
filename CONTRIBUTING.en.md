@@ -4,7 +4,7 @@ English | [简体中文](CONTRIBUTING.md)
 
 ## Contributor lane: data only
 
-1. Start from the [SDK and reusable template](sdk/README.en.md). Choose a unique non-preset ID, a fixed SemVer and a public source revision. Develop/build locally; the marketplace PR must **not** change or execute source, scripts, workflows or dependencies.
+1. Start from the [SDK and reusable template](sdk/README.en.md). Choose a unique non-preset ID, a fixed SemVer and a public source revision. Develop/build locally; the contributor-data lane must **not** change or execute source, scripts, workflows or dependencies.
 2. Build assemblies on your own machine and package with the generic offline CLI. Supply a full technical manifest (or submission JSON) using `--manifest`; `--input` accepts any prebuilt assembly directory. The build descriptor in the Hello example is not an installable manifest. Do not include host Core, credentials or private data.
 
    ~~~sh
@@ -14,7 +14,7 @@ English | [简体中文](CONTRIBUTING.md)
    For a genuinely new version, initially omit `--check-catalog`, copy the resulting full ZIP hash into its new canonical submission, then verify again. Never change an existing submitted ID/version manifest or overwrite a versioned ZIP. Direct `--write-catalog` is removed.
 3. Submit exactly `submissions/<id>/<version>.json`, matching [the submission schema](schemas/submission.schema.json): `schemaVersion: 1`, `manifest`, `metadata`. Descriptions are required in Chinese, with optional English. Metadata cannot contain `Review` or `Governance`. The canonical submission owns both technical and presentation data.
 4. Run `python tools/generate_catalog.py` and `python tools/generate_catalog.py --check`. Commit the canonical submission and generated index/repository/presentation/archival manifests only. The generator neither downloads nor executes anything. See [M4 trust boundaries](docs/m4-market.md).
-5. Contributor CI uses the trusted PR-base validator, schemas and requirements; candidate checkout is only bounded JSON/data. A contributor cannot edit reviews, governance, builtins, validator, workflows or arbitrary files. There are no plugin builds, downloads or execution and the token is read-only. A green check is syntax/integrity evidence, **not human approval or proof of safety**.
+5. Contributor CI uses the trusted PR-base validator, schemas and requirements; candidate checkout is only bounded JSON/data. This lane rejects reviews, governance, builtins, validators, workflows and extra files; propose those changes in a separate maintainer-data or tooling PR. Routing follows actual changed paths, and every lane requires the designated maintainer's approval of the exact candidate SHA. Contributor-data checks perform no plugin builds, downloads or execution and use a read-only token. A green check is syntax/integrity evidence, **not human approval or proof of safety**.
 
 ## Protected maintainer lane
 

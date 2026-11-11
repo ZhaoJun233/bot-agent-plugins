@@ -7,6 +7,7 @@
 ## 三个文件的职责
 
 - [index.json](<../index.json>)：保持旧 schema，面向已有市场客户端，每个 ID 一个当前版本。
+- 当前版本取未撤下、未撤销版本中的 SemVer 最大值；同一版本的正式版高于预发布版。旧索引只保留依赖也能在该单版本集合中精确满足的条目，不改写依赖、不替换为其他旧版本；完整可用历史继续保留在 repository.json。
 - [repository.json](<../repository.json>)：新导入客户端可枚举一个仓库内多个插件及其多个不可变版本。
 - [presentation.json](<../presentation.json>)：中文说明、风险与版本级审核声明；不能覆盖技术清单或授予权限。
 

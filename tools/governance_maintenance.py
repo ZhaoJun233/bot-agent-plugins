@@ -11,7 +11,7 @@ import urllib.error
 import urllib.request
 from jsonschema import ValidationError
 
-from governance_refresh import APPROVAL_MAX_AGE_HOURS, FILES, age_hours, now_utc, parse, prepare, publication_state, timestamp_only
+from governance_refresh import APPROVAL_MAX_AGE_HOURS, FILES, GovernanceSourceError, age_hours, now_utc, parse, prepare, publication_state, timestamp_only
 from marketplace_github import GitHub, GitHubError, NoRedirect
 
 BRANCH = "automation/governance-refresh"
@@ -96,7 +96,9 @@ def create_refresh(api, base_sha, default_branch, documents, updates, now):
     if pull:
         head = pull["head"]["sha"]
         ancestor = api.get("/compare/" + base_sha + "..." + head)["merge_base_commit"]["sha"]
-        if ancestor == base_sha and age_hours(api.file("governance.json", head), now) <= APPROVAL_MAX_AGE_HOURS:
+        if ancestor != base_sha:
+            raise ValueError("Pending refresh base changed; preserve the candidate for maintainer reconciliation")
+        if age_hours(api.file("governance.json", head), now) <= APPROVAL_MAX_AGE_HOURS:
             return {"pr_number": pull["number"], "candidate_sha": head, "base_sha": base_sha, "pending_current": True}
     base = api.get("/git/commits/" + base_sha)
     entries = []
@@ -138,18 +140,26 @@ def maintain(api, read_public=published_feed, now=None):
             state = "public_source_mismatch"
             report_state(api, state)
             return {"state": state}
+        updates = prepare(documents, now)
     except GitHubError as error:
         state = str(error) if str(error).startswith("public_") else "github_api_unavailable"
         report_state(api, state)
         return {"state": state}
+    except GovernanceSourceError:
+        report_state(api, "source_invalid")
+        return {"state": "source_invalid"}
     except (ValueError, KeyError, UnicodeError, ValidationError):
         report_state(api, "public_invalid")
         return {"state": "public_invalid"}
+    prepared = {}
+    if updates is not None:
+        try:
+            prepared = create_refresh(api, base_sha, default_branch, documents, updates, now)
+        except (ValueError, GitHubError):
+            report_state(api, "refresh_blocked")
+            raise
     report_state(api, state)
-    updates = prepare(documents, now)
-    if updates is None:
-        return {"state": state}
-    return {"state": state, **create_refresh(api, base_sha, default_branch, documents, updates, now)}
+    return {"state": state, **prepared}
 
 
 def main():

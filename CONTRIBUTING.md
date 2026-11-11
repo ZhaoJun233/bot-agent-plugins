@@ -2,9 +2,9 @@
 
 简体中文 | [English](CONTRIBUTING.en.md)
 
-## 作者：只提交数据
+## 投稿数据通道
 
-1. 使用 [SDK 与可复用模板](sdk/README.md)，选择非 preset 的唯一 ID、固定 SemVer、公开源代码提交。作者自行构建；市场 PR 不执行也不接纳作者脚本、工作流或构建代码。
+1. 使用 [SDK 与可复用模板](sdk/README.md)，选择非 preset 的唯一 ID、固定 SemVer、公开源代码提交。作者自行构建；投稿数据通道不执行也不接纳脚本、工作流或构建代码。
 2. 使用通用 [离线打包工具](tools/package.py)：`--manifest` 指向完整技术清单或规范投稿 JSON；`--input` 指向任意预编译 DLL 目录；`--output` 是暂存目录。固定 ZIP 字节顺序、时间和格式，生成完整 SHA256、清单和 SHA256SUMS。不包含宿主 Core，不执行 DLL。同一版本的既有 ZIP 不得覆盖。
 3. 唯一投稿来源是 `submissions/<id>/<version>.json`，遵守 [投稿 schema](schemas/submission.schema.json)：`schemaVersion:1`、`manifest`、`metadata`。中文展示必填、英文可选；禁止自带 Review/Governance。新版本先打包、把真实哈希写入新投稿再检查；既有版本技术清单不可更改。
 4. 运行以下命令，提交规范投稿与生成文件。不再使用 `--write-catalog`。
@@ -15,7 +15,7 @@ python tools/generate_catalog.py --check
 python tools/package.py --manifest submissions/community.example.hello/1.0.0.json --input examples/HelloPlugin/bin/Release/net8.0 --output artifacts/staging --check-catalog
 ~~~
 
-5. 投稿 CI 从可信 PR base 读取验证器、schema 和依赖；候选 checkout 只按有界数据读取。只读 token，不运行投稿脚本/构建/插件、不下载插件。作者不能修改 reviews、governance、内置展示、验证器、schema、工作流或任意额外文件。通过仅说明结构和完整性，不等于审核或安全证明。
+5. 投稿 CI 从可信 PR base 读取验证器、schema 和依赖；候选 checkout 只按有界数据读取。只读 token，不运行投稿脚本/构建/插件、不下载插件。此通道不接受 reviews、governance、内置展示、验证器、schema、工作流或额外文件；这些变更须另开维护者数据或工具通道 PR。路由按实际改动确定，所有通道都须由指定维护者审核准确候选 SHA。通过校验仅说明结构和完整性，不等于审核或安全证明。
 
 ## 维护者：单维护者审核与固定资产
 

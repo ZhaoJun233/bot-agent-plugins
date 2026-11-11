@@ -48,6 +48,8 @@ def safe_path(name):
 
 def validate_manifest(manifest):
     schema_validator("manifest.schema.json").validate(manifest)
+    if type(manifest["ApiVersion"]) is not int:
+        raise ValueError("ApiVersion must be an exact integer")
     if len(json.dumps(manifest)) > 32768:
         raise ValueError("Manifest too large")
     safe_path(manifest["Id"])
