@@ -7,6 +7,8 @@ from pathlib import Path
 
 import jsonschema
 
+from validate_repository import validate_repository, validate_catalog_consistency
+
 ROOT = Path(__file__).resolve().parents[1]
 MAX_BYTES = 2 * 1024 * 1024
 CHINESE_FIELDS = ("Name", "Summary", "Description", "Usage", "RiskNotice", "Configuration",
@@ -29,10 +31,14 @@ def load_document(path):
     return json.loads(raw.decode("utf-8"), object_pairs_hook=_unique_object)
 
 
-def validate_presentation(document, index):
+def validate_presentation(document, index, repository=None):
     schema = load_document(ROOT / "schemas/presentation.schema.json")
     jsonschema.Draft202012Validator(schema, format_checker=jsonschema.FormatChecker()).validate(document)
-    pins = {(item["Id"], item["Version"]): item for item in index["Plugins"]}
+    manifests = index["Plugins"]
+    if repository is not None:
+        manifests = validate_repository(repository)
+        validate_catalog_consistency(manifests, index)
+    pins = {(item["Id"], item["Version"]): item for item in manifests}
     seen = set()
     for entry in document["Entries"]:
         identity = entry["Id"], entry["Version"]
@@ -60,8 +66,9 @@ def validate_presentation(document, index):
             pin = pins.get(identity)
             if not entry["PackageSha256"] or pin is None or entry["PackageSha256"] != pin["Sha256"]:
                 raise ValueError("Presentation package identity does not match technical catalog")
-            if metadata["Runtime"] != "dotnet":
-                raise ValueError("Current technical catalog supports dotnet packages only")
+            expected_runtime = "python" if pin["ApiVersion"] == 2 else "dotnet"
+            if metadata["Runtime"] != expected_runtime:
+                raise ValueError("Presentation runtime must match technical manifest")
         review = metadata["Review"]
         # jsonschema date-time checking needs an optional extra; CI must not silently skip it.
         if "ReviewedAt" in review:
@@ -85,8 +92,11 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--presentation", type=Path, default=ROOT / "presentation.json")
     parser.add_argument("--index", type=Path, default=ROOT / "index.json")
+    parser.add_argument("--repository", type=Path, help="Optional multi-version descriptor")
     args = parser.parse_args()
-    count = validate_presentation(load_document(args.presentation), load_document(args.index))
+    repository_path = args.repository or ROOT / "repository.json"
+    repository = load_document(repository_path) if args.repository or repository_path.exists() else None
+    count = validate_presentation(load_document(args.presentation), load_document(args.index), repository)
     print(f"Validated presentation v1: {count} entries; technical package pins unchanged")
 
 

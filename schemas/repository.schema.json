@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/repository.schema.json",
+  "title": "BotAgent multi-version plugin repository",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "SchemaVersion",
+    "Plugins"
+  ],
+  "properties": {
+    "SchemaVersion": {
+      "const": 1
+    },
+    "Plugins": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 1024,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "Id",
+          "Versions"
+        ],
+        "properties": {
+          "Id": {
+            "$ref": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/manifest.schema.json#/$defs/id"
+          },
+          "Versions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1024,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "Version",
+                "Manifest"
+              ],
+              "properties": {
+                "Version": {
+                  "$ref": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/manifest.schema.json#/$defs/version"
+                },
+                "Manifest": {
+                  "$ref": "https://raw.githubusercontent.com/ZhaoJun233/bot-agent-plugins/main/schemas/manifest.schema.json"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
