@@ -83,6 +83,7 @@ jobs:
           for version in ('1.0.0', '1.0.1'):
               manifest = copy.deepcopy(template)
               manifest['Version'] = version
+              manifest['MinimumHostVersion'] = '1.4.0'
               pin = manifest['Id'] + '-' + version
               manifest['DownloadUrl'] = 'https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/' + pin + '/' + pin + '.zip'
               package(Path('examples/PythonEcho-' + version), Path('artifacts/python-echo-' + version + '-release'), manifest, sdk=sdk)

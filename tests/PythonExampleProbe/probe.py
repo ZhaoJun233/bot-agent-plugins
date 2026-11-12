@@ -19,6 +19,7 @@ def probe(release, sdk):
     manifest = json.loads((release / "manifest.json").read_bytes())
     version = manifest["Version"]
     require(manifest["Id"] == "community.example.python-echo" and manifest["ApiVersion"] == 2, "example identity")
+    require(manifest["MinimumHostVersion"] == "1.4.0", "reviewed host compatibility baseline")
     require(manifest["Permissions"] == [] and manifest["Dependencies"] == [], "empty authority declarations")
     archive = release / (manifest["Id"] + "-" + version + ".zip")
     require(hashlib.sha256(archive.read_bytes()).hexdigest() == manifest["Sha256"], "exact ZIP pin")
