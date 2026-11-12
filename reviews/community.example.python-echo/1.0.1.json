@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "community.example.python-echo",
+  "version": "1.0.1",
+  "sha256": "4fee116a8bb6c6ccc3a380165ce56f96a954d7c0a20414d8bfd702b817e22e86",
+  "sourceRevision": "e545bbe9568bd63da8f490204c1ad480db96e63a",
+  "reviewer": "ZhaoJun233",
+  "reviewedAt": "2026-11-12T02:32:25Z",
+  "evidence": [
+    "https://github.com/ZhaoJun233/bot-agent-plugins/releases/tag/community.example.python-echo-1.0.1",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/pull/6",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/actions/runs/43140087745"
+  ],
+  "notes": "维护者已批准固定源码、canonical SDK 和发布产物；不可变 Release 三份资产的独立下载、完整清单与 ZIP 字节已核验，Windows Python 3.13、Linux Python 3.13 和 Docker Python 3.11 协议检查通过。人工审核不等于进程沙箱或宿主/UI 整体验收。"
+}
