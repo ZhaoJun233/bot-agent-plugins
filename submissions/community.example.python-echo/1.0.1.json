@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "community.example.python-echo",
+    "Version": "1.0.1",
+    "ApiVersion": 2,
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [
+      {
+        "Key": "prefix",
+        "Label": "合成输出前缀",
+        "Type": "string",
+        "Required": false,
+        "DefaultValue": "synthetic"
+      }
+    ],
+    "Sha256": "4fee116a8bb6c6ccc3a380165ce56f96a954d7c0a20414d8bfd702b817e22e86",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/community.example.python-echo-1.0.1/community.example.python-echo-1.0.1.zip",
+    "Runtime": {
+      "Kind": "python",
+      "ProtocolVersion": 1,
+      "EntryPoint": "worker.py",
+      "MinimumPythonVersion": "3.11",
+      "DependencyMode": "stdlib-only",
+      "Tools": [
+        "echo"
+      ]
+    }
+  },
+  "metadata": {
+    "Name": "Python 回声示例",
+    "Summary": "通过独立 Python 工作进程返回带版本标识的合成文本，只声明 echo 工具。",
+    "Description": "标准库示例展示 canonical SDK 的工具装饰器、配置与生命周期。返回版本、前缀和最多 200 个字符的 text；不联网、不读取聊天记录。",
+    "Category": "开发示例",
+    "Author": "BotAgent Plugin Marketplace Contributors",
+    "License": "MIT",
+    "Usage": "安装后默认禁用；确认本机代码执行风险并明确启用插件后，授权 echo 工具，传入 text 字符串进行合成测试。",
+    "RiskNotice": "Python 运行于本机子进程，不是安全沙箱；代码仍可能访问当前账户可访问的资源。只安装可信来源，工具 read_only 提示不代表授权。",
+    "Configuration": "可选 prefix 文本字段，默认 synthetic；配置仅传给启用后的工作进程，不应记录到日志。",
+    "Compatibility": "宿主 1.4.0 及以上；运营者预先配置 Python 3.11 或更新的 3.x。协议 v1，仅依赖标准库，不自动安装解释器或依赖。未就绪时安装会被阻止。",
+    "Changelog": "1.0.1：返回真实版本 1.0.1，支持 prefix 与有界 text；仅更新包内版本标识，保持相同工具和配置契约。",
+    "Maintenance": "示例由本市场仓库维护；两版均绑定固定源码与独立下载核验过的不可变 Release。仅用于开发和合成验证。",
+    "PermissionNotes": "Permissions、Dependencies 均为空；Settings 仅声明 prefix，Runtime.Tools 仅允许 echo。这些声明不构成操作系统权限沙箱。",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "Tags": [
+      "示例",
+      "Python",
+      "标准库"
+    ],
+    "Runtime": "python",
+    "SourceKind": "community"
+  }
+}

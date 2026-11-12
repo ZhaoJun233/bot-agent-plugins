@@ -1,0 +1,29 @@
+{
+  "Id": "community.example.python-echo",
+  "Version": "1.0.1",
+  "ApiVersion": 2,
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "prefix",
+      "Label": "合成输出前缀",
+      "Type": "string",
+      "Required": false,
+      "DefaultValue": "synthetic"
+    }
+  ],
+  "Sha256": "4fee116a8bb6c6ccc3a380165ce56f96a954d7c0a20414d8bfd702b817e22e86",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/community.example.python-echo-1.0.1/community.example.python-echo-1.0.1.zip",
+  "Runtime": {
+    "Kind": "python",
+    "ProtocolVersion": 1,
+    "EntryPoint": "worker.py",
+    "MinimumPythonVersion": "3.11",
+    "DependencyMode": "stdlib-only",
+    "Tools": [
+      "echo"
+    ]
+  }
+}
