@@ -69,6 +69,36 @@ jobs:
           Path('artifacts/hello-1.0.1-input.json').write_text(json.dumps(manifest), encoding='utf-8')
           PY
       - run: python tools/package.py --input examples/HelloPlugin-1.0.1/bin/Release/net8.0 --manifest artifacts/hello-1.0.1-input.json --output artifacts/hello-1.0.1-release
+      - name: Package two real Python example candidates with the canonical host SDK
+        run: |
+          python - <<'PY'
+          import copy, hashlib, json, sys
+          from pathlib import Path
+          sys.path.insert(0, 'tools')
+          from package import package
+          sdk = Path('artifacts/host-current/src/BotAgent.Mcp/PythonWorkerSdk/botagent_worker.py')
+          if hashlib.sha256(sdk.read_bytes()).hexdigest() != '6459860e926101a14171771d2ea4f8695b2f19d923088ad56ebbd28242719560':
+              raise SystemExit('Canonical current-host SDK differs from the fixed source reference')
+          template = json.loads(Path('templates/PythonWorker/submission.template.json').read_text(encoding='utf-8'))['manifest']
+          for version in ('1.0.0', '1.0.1'):
+              manifest = copy.deepcopy(template)
+              manifest['Version'] = version
+              manifest['MinimumHostVersion'] = '1.4.0'
+              pin = manifest['Id'] + '-' + version
+              manifest['DownloadUrl'] = 'https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/' + pin + '/' + pin + '.zip'
+              package(Path('examples/PythonEcho-' + version), Path('artifacts/python-echo-' + version + '-release'), manifest, sdk=sdk)
+          PY
+      - name: Real Python version, configuration and lifecycle protocol
+        run: python tests/PythonExampleProbe/probe.py --sdk artifacts/host-current/src/BotAgent.Mcp/PythonWorkerSdk/botagent_worker.py artifacts/python-echo-1.0.0-release artifacts/python-echo-1.0.1-release
+      - name: Docker Python 3.11 protocol acceptance on Linux
+        run: |
+          docker pull python:3.11-slim-bookworm
+          docker image inspect python:3.11-slim-bookworm --format '{{.Id}} {{json .RepoDigests}}'
+          docker run --rm --network none --read-only --tmpfs /tmp:rw,nosuid,nodev \
+            --mount "type=bind,source=$PWD,target=/candidate,readonly" --workdir /candidate \
+            python:3.11-slim-bookworm python -B tests/PythonExampleProbe/probe.py \
+            --sdk artifacts/host-current/src/BotAgent.Mcp/PythonWorkerSdk/botagent_worker.py \
+            artifacts/python-echo-1.0.0-release artifacts/python-echo-1.0.1-release
       - run: python tools/generate_catalog.py --check
       - run: python -m unittest discover -s tools -p 'test_*.py'
       - run: dotnet build artifacts/host-reference/src/BotAgent.Core/BotAgent.Core.csproj -c Release
@@ -91,4 +121,11 @@ jobs:
         with:
           name: verified-hello-1.0.1-candidate
           path: candidate/artifacts/hello-1.0.1-release/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verified-python-echo-candidates
+          path: |
+            candidate/artifacts/python-echo-1.0.0-release/
+            candidate/artifacts/python-echo-1.0.1-release/
           if-no-files-found: error
