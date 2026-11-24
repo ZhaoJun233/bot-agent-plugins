@@ -1,0 +1,30 @@
+{
+  "Id": "preset.feature.profiles",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Profiles.dll",
+  "EntryType": "BotAgent.Packages.Profiles.ProfilesPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.profiles-1.1.0/preset.feature.profiles-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "allowAttestedSummary",
+      "Label": "允许对来源已鉴证的分域画像执行后台摘要（受撤回/遗忘约束）",
+      "Type": "boolean",
+      "DefaultValue": "false",
+      "Required": false
+    }
+  ],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Profiles.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.profiles"
+    }
+  ]
+}

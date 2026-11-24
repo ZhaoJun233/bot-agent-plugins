@@ -44,7 +44,10 @@
       "const": 1
     },
     "TargetFramework": {
-      "const": "net8.0",
+      "enum": [
+        "net8.0",
+        "net10.0"
+      ],
       "default": "net8.0"
     },
     "MinimumHostVersion": {
@@ -80,12 +83,56 @@
       "items": {
         "$ref": "#/$defs/setting"
       }
+    },
+    "ToolApiVersion": {
+      "anyOf": [
+        {
+          "const": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "SharedContracts": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "$ref": "#/$defs/sharedContract"
+      }
+    },
+    "Data": {
+      "$ref": "#/$defs/data"
+    },
+    "Control": {
+      "type": "boolean"
+    },
+    "Configuration": {
+      "$ref": "#/$defs/configuration"
+    },
+    "Ui": {
+      "$ref": "#/$defs/ui"
+    },
+    "Adoption": {
+      "enum": [
+        "cold",
+        "online"
+      ]
+    },
+    "ExclusiveResources": {
+      "type": "array",
+      "maxItems": 32,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9._-]{0,79}$"
+      }
     }
   },
   "$defs": {
     "id": {
       "type": "string",
-      "pattern": "^(?!preset\\.)(?!.*\\.\\.)(?!.*\\.$)[a-z][a-z0-9.-]{0,79}$"
+      "pattern": "^(?!system\\.)(?:preset\\.feature\\.[a-z0-9][a-z0-9-]{0,63}|(?!preset\\.)(?!.*\\.\\.)(?!.*\\.$)[a-z][a-z0-9.-]{0,79})$"
     },
     "version": {
       "type": "string",
@@ -161,6 +208,9 @@
             "maxLength": 4096
           },
           "uniqueItems": true
+        },
+        "NumberConstraints": {
+          "$ref": "#/$defs/numberConstraints"
         }
       },
       "allOf": [
@@ -201,6 +251,228 @@
           }
         }
       ]
+    },
+    "numberConstraints": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "Minimum": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Maximum": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "Integer": {
+          "type": "boolean"
+        }
+      }
+    },
+    "sharedContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Name",
+        "Version",
+        "Sha256",
+        "Owner"
+      ],
+      "properties": {
+        "Name": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_.-]{0,119}$"
+        },
+        "Version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "Sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "Owner": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "Tables",
+        "StatePrefixes"
+      ],
+      "properties": {
+        "Tables": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]{0,63}$"
+          }
+        },
+        "StatePrefixes": {
+          "type": "array",
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_:.-]{0,63}$"
+          }
+        },
+        "Usage": {
+          "type": "boolean"
+        },
+        "Audit": {
+          "type": "boolean"
+        },
+        "Receipt": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "required": [
+            "Contract",
+            "Version"
+          ],
+          "properties": {
+            "Contract": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120
+            },
+            "Version": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 32
+            }
+          }
+        }
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ApiVersion",
+        "Bindings"
+      ],
+      "properties": {
+        "ApiVersion": {
+          "const": 1
+        },
+        "Bindings": {
+          "type": "array",
+          "maxItems": 128,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "Key"
+            ],
+            "properties": {
+              "Key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z][a-zA-Z0-9_.-]{0,79}$"
+              },
+              "LegacyFieldId": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "minimum": 1
+              },
+              "ReadOnly": {
+                "type": "boolean"
+              },
+              "Trim": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ContractVersion",
+        "Entry",
+        "Assets"
+      ],
+      "properties": {
+        "ContractVersion": {
+          "const": 1
+        },
+        "Entry": {
+          "type": "string",
+          "maxLength": 240,
+          "pattern": "^web/[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*\\.html$"
+        },
+        "Assets": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 64,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "Path",
+              "Sha256",
+              "ContentType"
+            ],
+            "properties": {
+              "Path": {
+                "type": "string",
+                "maxLength": 240,
+                "pattern": "^web/[A-Za-z0-9_.-]+(/[A-Za-z0-9_.-]+)*$"
+              },
+              "Sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "ContentType": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120
+              }
+            }
+          }
+        },
+        "AllowedActions": {
+          "type": "array",
+          "maxItems": 64,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        },
+        "Kind": {
+          "type": "string",
+          "enum": [
+            "dialog",
+            "panel"
+          ]
+        },
+        "Title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        }
+      }
     }
   }
 }

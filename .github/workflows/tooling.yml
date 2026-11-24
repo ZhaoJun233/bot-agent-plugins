@@ -49,13 +49,18 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           repository: ZhaoJun233/bot-agent
-          ref: afbda550d44df6191e173561808eb280f83e6f46
+          ref: 6032dbb0f4d860ac2c116dc0930d9c6a436d86d5
           path: candidate/artifacts/host-current
           persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version: '22'
       - run: python -m pip install --disable-pip-version-check -r tools/requirements.txt
       - run: dotnet build examples/HelloPlugin/HelloPlugin.csproj -c Release
       - run: dotnet build examples/HelloPlugin-1.0.1/HelloPlugin.csproj -c Release
       - run: dotnet build templates/PluginTemplate/PluginTemplate.csproj -c Release -p:BotAgentCorePath="$GITHUB_WORKSPACE/candidate/sdk/BotAgent.PluginApi/bin/Release/net8.0/BotAgent.Core.dll"
+      - run: dotnet build OfficialPlugins.slnx -c Release
+      - run: python tools/build_official_releases.py --output artifacts/official-releases
       - run: python tools/package.py --input examples/HelloPlugin/bin/Release/net8.0 --manifest submissions/community.example.hello/1.0.0.json --output artifacts/release --check-catalog
       - name: Prepare the new version packaging input
         run: |
@@ -112,10 +117,50 @@ jobs:
         run: dotnet tests/ContractProbe/bin/Release/net10.0/ContractProbe.dll artifacts/host-current/src/BotAgent.Core/bin/Release/net10.0/BotAgent.Core.dll examples/HelloPlugin/bin/Release/net8.0/HelloPlugin.dll
       - name: New version against actual net10 Core
         run: dotnet tests/ContractProbe/bin/Release/net10.0/ContractProbe.dll artifacts/host-current/src/BotAgent.Core/bin/Release/net10.0/BotAgent.Core.dll examples/HelloPlugin-1.0.1/bin/Release/net8.0/HelloPlugin.dll Marketplace.Examples.HelloPlugin community.example.hello 1.0.1
+      - name: Official feature plugins contract probe against actual net10 Core
+        run: |
+          python - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          core_dir = Path("artifacts/host-current/src/BotAgent.Core/bin/Release/net10.0")
+          core_dll = core_dir / "BotAgent.Core.dll"
+          probe = "tests/ContractProbe/bin/Release/net10.0/ContractProbe.dll"
+          for pdir in sorted(Path("plugins-src").iterdir(), key=lambda p: p.name):
+              if not pdir.is_dir():
+                  continue
+              manifest = json.loads((pdir / "manifest.template.json").read_text(encoding="utf-8"))
+              dll = pdir / "backend/bin/Release/net10.0" / manifest["EntryAssembly"]
+              subprocess.run(
+                  ["dotnet", probe, "--official", str(core_dir), str(core_dll), str(dll),
+                   manifest["EntryType"], manifest["Id"], manifest["Version"]],
+                  check=True,
+              )
+          PY
+      - name: Independent quota UI build (migrated from bot-agent)
+        run: |
+          mkdir -p "$RUNNER_TEMP/quota-ui/plugins-src/token-quota" "$RUNNER_TEMP/quota-ui/sdk"
+          cp -R plugins-src/token-quota/frontend "$RUNNER_TEMP/quota-ui/plugins-src/token-quota/frontend"
+          cp -R sdk/ui "$RUNNER_TEMP/quota-ui/sdk/ui"
+          cd "$RUNNER_TEMP/quota-ui/plugins-src/token-quota/frontend"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run build
+      - name: Independent research UI build (migrated from bot-agent)
+        run: |
+          mkdir -p "$RUNNER_TEMP/research-ui"
+          cp -R plugins-src/websearch/frontend "$RUNNER_TEMP/research-ui/frontend"
+          cd "$RUNNER_TEMP/research-ui/frontend"
+          npm ci --ignore-scripts --no-audit --no-fund
+          npm run typecheck
+          npm run build
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: verified-example-release
           path: candidate/artifacts/release/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: verified-official-releases
+          path: candidate/artifacts/official-releases/
           if-no-files-found: error
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:

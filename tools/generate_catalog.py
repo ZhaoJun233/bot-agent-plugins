@@ -70,6 +70,15 @@ def submissions(root):
             validate_python_manifest(manifest)
         else:
             validate_manifest(manifest)
+        source_kind = record["metadata"]["SourceKind"]
+        is_official = manifest["Id"].startswith("preset.feature.")
+        if is_official != (source_kind == "official"):
+            raise ValueError("Official preset IDs require SourceKind official")
+        if source_kind == "official":
+            if record["metadata"]["Runtime"] != "dotnet":
+                raise ValueError("Official preset plugins must declare dotnet runtime")
+            if record["metadata"]["Repository"].rstrip("/") != "https://github.com/ZhaoJun233/bot-agent-plugins":
+                raise ValueError("Official preset plugins must reference ZhaoJun233/bot-agent-plugins")
         identity = manifest["Id"], manifest["Version"]
         for part in identity:
             safe_path(part)

@@ -1,0 +1,62 @@
+{
+  "Id": "preset.feature.personal-todo",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.PersonalTodo.dll",
+  "EntryType": "BotAgent.Packages.Todo.PersonalTodoPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.personal-todo-1.1.0/preset.feature.personal-todo-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [
+    "tools.execute"
+  ],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "maxTodosPerOwner",
+      "Label": "单人最大待办数量（上限 256）",
+      "Type": "number",
+      "DefaultValue": "256",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 16,
+        "Maximum": 256,
+        "Integer": true
+      }
+    }
+  ],
+  "ToolApiVersion": 1,
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.PersonalTodo.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.personal-todo"
+    }
+  ],
+  "Ui": {
+    "ContractVersion": 1,
+    "Entry": "web/index.html",
+    "Assets": [
+      {
+        "Path": "web/index.html",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/html; charset=utf-8"
+      },
+      {
+        "Path": "web/todo-runtime.js",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/javascript; charset=utf-8"
+      }
+    ],
+    "AllowedActions": [
+      "todo.list",
+      "todo.save",
+      "todo.delete",
+      "dialog.close"
+    ],
+    "Kind": "dialog",
+    "Title": "个人待办"
+  }
+}

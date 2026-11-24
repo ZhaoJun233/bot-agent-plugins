@@ -13,6 +13,19 @@ from referencing import Registry, Resource
 
 ROOT = Path(__file__).resolve().parents[1]
 MAX_ARCHIVE = 32 * 1024 * 1024
+MAX_UI_BYTES = 4 * 1024 * 1024
+OFFICIAL_PREFIX = "preset.feature."
+OFFICIAL_RELEASE_PREFIX = "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/"
+FORBIDDEN_ASSEMBLIES = {"botagent.core.dll", "botagent.plugin.contracts.dll"}
+ALLOWED_UI_CONTENT_TYPES = {
+    ".html": "text/html; charset=utf-8",
+    ".js": "text/javascript; charset=utf-8",
+    ".mjs": "text/javascript; charset=utf-8",
+    ".css": "text/css; charset=utf-8",
+    ".svg": "image/svg+xml",
+    ".png": "image/png",
+    ".json": "application/json; charset=utf-8",
+}
 
 
 def load_json(path):
@@ -54,6 +67,35 @@ def validate_manifest(manifest):
         raise ValueError("Manifest too large")
     safe_path(manifest["Id"])
     safe_path(manifest["EntryAssembly"])
+    official = manifest["Id"].startswith(OFFICIAL_PREFIX)
+    if official:
+        if not manifest["DownloadUrl"].startswith(OFFICIAL_RELEASE_PREFIX):
+            raise ValueError("Official preset release URL must stay on ZhaoJun233/bot-agent-plugins")
+    elif any(manifest.get(field) for field in ("Data", "Control", "Configuration", "Adoption", "ExclusiveResources")):
+        raise ValueError("Privileged host declarations are reserved for official preset plugins")
+    contract_names = set()
+    for contract in manifest.get("SharedContracts") or []:
+        lowered = contract["Name"].lower()
+        if lowered in contract_names or lowered in ("botagent.core", "botagent.plugin.contracts"):
+            raise ValueError("Invalid or duplicate SharedContract declaration")
+        contract_names.add(lowered)
+        if contract["Sha256"] == "0" * 64:
+            raise ValueError("Placeholder contract hash forbidden")
+    if (ui := manifest.get("Ui")) is not None:
+        asset_paths = set()
+        for asset in ui["Assets"]:
+            asset_path = asset["Path"]
+            safe_path(asset_path)
+            if not asset_path.startswith("web/") or asset_path.lower() in asset_paths:
+                raise ValueError("Invalid or duplicate UI asset path")
+            ext = Path(asset_path).suffix.lower()
+            if ALLOWED_UI_CONTENT_TYPES.get(ext) != asset["ContentType"]:
+                raise ValueError("Disallowed UI asset content type")
+            if asset["Sha256"] == "0" * 64:
+                raise ValueError("Placeholder UI asset hash forbidden")
+            asset_paths.add(asset_path.lower())
+        if ui["Entry"].lower() not in asset_paths:
+            raise ValueError("UI entry asset missing from declared assets")
     validate_common_manifest(manifest)
 
 def validate_common_manifest(manifest):
@@ -69,12 +111,12 @@ def validate_common_manifest(manifest):
     if url.path.split("/")[-2:] != [expected, expected + ".zip"]:
         raise ValueError("Release URL must pin this ID and version")
     dependency_ids = set()
-    for dependency in manifest.get("Dependencies", []):
+    for dependency in manifest.get("Dependencies") or []:
         if dependency["Id"] == manifest["Id"] or dependency["Id"] in dependency_ids:
             raise ValueError("Self or duplicate dependency")
         dependency_ids.add(dependency["Id"])
     setting_keys = set()
-    for setting in manifest.get("Settings", []):
+    for setting in manifest.get("Settings") or []:
         if not setting["Label"].strip() or setting["Key"] in setting_keys:
             raise ValueError("Blank label or duplicate setting key")
         setting_keys.add(setting["Key"])
@@ -132,12 +174,17 @@ def validate_archive(path, manifest):
         raise ValueError("Archive too large")
     if hashlib.sha256(path.read_bytes()).hexdigest().lower() != manifest["Sha256"].lower():
         raise ValueError("Archive SHA256 mismatch")
+    ui_assets = {asset["Path"].lower(): asset["Sha256"].lower()
+                 for asset in (manifest.get("Ui") or {}).get("Assets", [])}
     with zipfile.ZipFile(path) as archive:
         entries = archive.infolist()
         if not entries or len(entries) > 2048:
             raise ValueError("Invalid archive entry count")
         names = set()
+        dll_hashes = {}
+        seen_ui = set()
         total = 0
+        ui_total = 0
         for entry in entries:
             safe_path(entry.filename)
             normalized = entry.filename.lower()
@@ -147,16 +194,33 @@ def validate_archive(path, manifest):
             mode = entry.external_attr >> 16
             if stat.S_IFMT(mode) not in (0, stat.S_IFREG) or entry.flag_bits & 1:
                 raise ValueError("Links, directories, special files or encryption forbidden")
-            if not normalized.endswith(".dll") or normalized.rsplit("/", 1)[-1] == "botagent.core.dll":
-                raise ValueError("Only plugin assemblies allowed; host Core forbidden")
             total += entry.file_size
             if entry.file_size > MAX_ARCHIVE or total > 128 * 1024 * 1024:
                 raise ValueError("Expanded archive too large")
             payload = archive.read(entry)
-            if not payload.startswith(b"MZ"):
-                raise ValueError("Assembly must be a PE file")
+            if normalized.endswith(".dll"):
+                if normalized.rsplit("/", 1)[-1] in FORBIDDEN_ASSEMBLIES:
+                    raise ValueError("Only plugin assemblies allowed; host Core/Plugin.Contracts forbidden")
+                if not payload.startswith(b"MZ"):
+                    raise ValueError("Assembly must be a PE file")
+                dll_hashes[normalized] = hashlib.sha256(payload).hexdigest().lower()
+            elif normalized in ui_assets:
+                ui_total += entry.file_size
+                if ui_total > MAX_UI_BYTES:
+                    raise ValueError("Expanded UI bundle too large")
+                if hashlib.sha256(payload).hexdigest().lower() != ui_assets[normalized]:
+                    raise ValueError("UI asset SHA256 mismatch")
+                seen_ui.add(normalized)
+            else:
+                raise ValueError("Only plugin assemblies and declared UI assets allowed; host Core forbidden")
         if manifest["EntryAssembly"].lower() not in names:
             raise ValueError("Entry assembly missing")
+        if seen_ui != set(ui_assets):
+            raise ValueError("Declared UI asset missing from archive")
+        for contract in manifest.get("SharedContracts") or []:
+            key = contract["Name"].lower() + ".dll"
+            if dll_hashes.get(key) != contract["Sha256"].lower():
+                raise ValueError("Declared SharedContract missing or SHA256 mismatch: " + contract["Name"])
 
 
 def main():

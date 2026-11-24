@@ -1,0 +1,63 @@
+{
+  "Id": "preset.feature.digest",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Digest.dll",
+  "EntryType": "BotAgent.Packages.Digest.DigestPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.digest-1.1.0/preset.feature.digest-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [
+    "model.grounded-text",
+    "tools.execute"
+  ],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "defaultMessageCount",
+      "Label": "默认汇总消息条数",
+      "Type": "number",
+      "DefaultValue": "80",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 10,
+        "Maximum": 200,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "maxLookbackHours",
+      "Label": "最大回溯小时数",
+      "Type": "number",
+      "DefaultValue": "24",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 1,
+        "Maximum": 168,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "cooldownSeconds",
+      "Label": "同会话纪要冷却秒数",
+      "Type": "number",
+      "DefaultValue": "20",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 5,
+        "Maximum": 300,
+        "Integer": true
+      }
+    }
+  ],
+  "ToolApiVersion": 1,
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Digest.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.digest"
+    }
+  ]
+}

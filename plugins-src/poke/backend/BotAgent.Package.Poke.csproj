@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>BotAgent.Package.Poke</AssemblyName>
+    <Version>1.1.0</Version>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(PluginSdkPath)' == ''">
+    <ProjectReference Include="../../../sdk/BotAgent.PluginApi/BotAgent.PluginApi.csproj" Private="false" />
+    <ProjectReference Include="../../../sdk/contracts/plugin/BotAgent.Plugin.Contracts.csproj" Private="false" />
+    <ProjectReference Include="../../../sdk/contracts/poke/BotAgent.Poke.Contracts.csproj" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(PluginSdkPath)' != ''">
+    <Reference Include="BotAgent.Core" HintPath="$(PluginSdkPath)/BotAgent.Core.dll" Private="false" />
+    <Reference Include="BotAgent.Plugin.Contracts" HintPath="$(PluginSdkPath)/BotAgent.Plugin.Contracts.dll" Private="false" />
+    <Reference Include="BotAgent.Poke.Contracts" HintPath="$(PluginSdkPath)/BotAgent.Poke.Contracts.dll" Private="false" />
+  </ItemGroup>
+</Project>

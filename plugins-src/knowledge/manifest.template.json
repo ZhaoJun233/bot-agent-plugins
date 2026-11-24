@@ -1,0 +1,62 @@
+{
+  "Id": "preset.feature.knowledge",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Knowledge.dll",
+  "EntryType": "BotAgent.Packages.Knowledge.KnowledgePackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.knowledge-1.1.0/preset.feature.knowledge-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [
+    "tools.execute"
+  ],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "maxDocsPerScope",
+      "Label": "单会话最大文档数（上限 256）",
+      "Type": "number",
+      "DefaultValue": "256",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 16,
+        "Maximum": 256,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "maxChunkChars",
+      "Label": "分块最大字符数",
+      "Type": "number",
+      "DefaultValue": "800",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 200,
+        "Maximum": 1600,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "defaultTopK",
+      "Label": "默认检索返回片段数",
+      "Type": "number",
+      "DefaultValue": "4",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 1,
+        "Maximum": 10,
+        "Integer": true
+      }
+    }
+  ],
+  "ToolApiVersion": 1,
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Knowledge.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.knowledge"
+    }
+  ]
+}

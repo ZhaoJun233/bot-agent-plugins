@@ -1,0 +1,58 @@
+{
+  "Id": "preset.feature.documents",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Documents.dll",
+  "EntryType": "BotAgent.Packages.Documents.DocumentsPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.documents-1.1.0/preset.feature.documents-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [
+    "network.public-read",
+    "tools.execute"
+  ],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "autoExtractInbound",
+      "Label": "入站附件自动提取首屏摘要",
+      "Type": "boolean",
+      "DefaultValue": "true",
+      "Required": false
+    },
+    {
+      "Key": "maxFileBytes",
+      "Label": "单文件最大字节数（上限 10 MiB）",
+      "Type": "number",
+      "DefaultValue": "10485760",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 65536,
+        "Maximum": 10485760,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "maxInlineChars",
+      "Label": "单次提取最大字符数",
+      "Type": "number",
+      "DefaultValue": "6000",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 500,
+        "Maximum": 12000,
+        "Integer": true
+      }
+    }
+  ],
+  "ToolApiVersion": 1,
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Documents.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.documents"
+    }
+  ]
+}
