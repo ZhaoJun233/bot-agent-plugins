@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.stickers",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Stickers.dll",
+    "EntryType": "BotAgent.Packages.Stickers.StickersPackagePlugin",
+    "Sha256": "5baf1b0e50905b2c5e16c64a6369ac8d2e4bb7afe6a55247174c7ebd4dec59bb",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.stickers-1.1.0/preset.feature.stickers-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [],
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Stickers.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "78fa92b5fb6e4a9434d6b965a89f9f14c5c95b61ce7347aa07e652ec1e830412",
+        "Owner": "preset.feature.stickers"
+      }
+    ],
+    "Ui": {
+      "ContractVersion": 1,
+      "Entry": "web/index.html",
+      "Assets": [
+        {
+          "Path": "web/index.html",
+          "Sha256": "ab15fd37d46089eecf6919b2a550a59632e6b5ce983ded55389d9c896a2357dc",
+          "ContentType": "text/html; charset=utf-8"
+        },
+        {
+          "Path": "web/stickers-runtime.js",
+          "Sha256": "3ce1f65e7c662879274167c42e7fa6f91dc5bb3e9095670ce804dd78f84d8397",
+          "ContentType": "text/javascript; charset=utf-8"
+        },
+        {
+          "Path": "web/style.css",
+          "Sha256": "80c80e1c025846c547869001e2663f646dcb952404685474e65a669ea29d7c6f",
+          "ContentType": "text/css; charset=utf-8"
+        }
+      ],
+      "AllowedActions": [
+        "dialog.close"
+      ],
+      "Kind": "dialog",
+      "Title": "表情包协同与安全库"
+    }
+  },
+  "metadata": {
+    "Name": "表情包",
+    "Summary": "表情包收录、标签与协同发送入口。",
+    "Description": "宿主可学习收录表情图片、提取标签并按语境发送；预设提供配置入口，魔数校验不是内容安全保证。",
+    "Category": "会话互动",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "在表情包管理与配置入口启用后，按宿主的收录和发送策略使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+    "RiskNotice": "涉及图片处理与存储；启用前确认图片隐私和内容审核策略。",
+    "Configuration": "配置表情包学习、审核与发送策略；请使用合成图片验证。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+    "Tags": [
+      "会话互动",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

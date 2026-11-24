@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.vibes",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Vibes.dll",
+    "EntryType": "BotAgent.Packages.Vibes.VibesPackagePlugin",
+    "Sha256": "0d277652dfebe8e6c840ca2ab62f5e702662bfa6205cd247c4d9fafc55166606",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.vibes-1.1.0/preset.feature.vibes-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [],
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Vibes.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "7252d4767737e101aff94c37824a69e1949580f14a1c4ccc38b1f03273a62a9b",
+        "Owner": "preset.feature.vibes"
+      }
+    ]
+  },
+  "metadata": {
+    "Name": "群聊氛围",
+    "Summary": "主动开口与话题互动的配置入口。",
+    "Description": "宿主内置群聊活跃策略入口，结合冷却与话题引导决定互动；并非独立调度插件。",
+    "Category": "会话策略",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "在配置入口启用并设置宿主当前支持的活跃策略。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+    "RiskNotice": "可能增加群聊主动消息；效果由宿主策略决定，勿将配置描述视作精确概率承诺。",
+    "Configuration": "使用现有策略设置；本阶段不修改回复节奏、等待或概率契约。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+    "Tags": [
+      "会话策略",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

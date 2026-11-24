@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.music",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Music.dll",
+    "EntryType": "BotAgent.Packages.Music.MusicPackagePlugin",
+    "Sha256": "54a3d91f789f741cf0c79245a5ce5f9372ba1a3b319180a3ac6418b008e8e51b",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.music-1.1.0/preset.feature.music-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [],
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Music.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "2015a982a2d71ddebb72925cc223eb13da59d4eda02f4828d8bd32d77abd0ac7",
+        "Owner": "preset.feature.music"
+      }
+    ]
+  },
+  "metadata": {
+    "Name": "点歌与音乐分享",
+    "Summary": "音乐卡片、点歌与音频解析入口。",
+    "Description": "宿主内置音乐能力的开关与配置入口，支持群聊音乐卡片解析及音乐分享；预设自身不包含独立处理器。",
+    "Category": "音频与媒体",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "在插件配置中启用音乐能力并配置音乐服务，再通过宿主支持的点歌交互使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+    "RiskNotice": "音乐服务可能联网并处理歌曲请求，实际行为由宿主负责。",
+    "Configuration": "配置音乐服务地址与相关能力开关；不在市场资料中保存服务密钥。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+    "Tags": [
+      "音频与媒体",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

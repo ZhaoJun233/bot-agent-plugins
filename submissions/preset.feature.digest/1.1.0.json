@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.digest",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Digest.dll",
+    "EntryType": "BotAgent.Packages.Digest.DigestPackagePlugin",
+    "Sha256": "d4913e05a827234c510dcee005338ec142daa103cace9786d696625fb77005d6",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.digest-1.1.0/preset.feature.digest-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [
+      "model.grounded-text",
+      "tools.execute"
+    ],
+    "Dependencies": [],
+    "Settings": [
+      {
+        "Key": "defaultMessageCount",
+        "Label": "默认汇总消息条数",
+        "Type": "number",
+        "DefaultValue": "80",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 10,
+          "Maximum": 200,
+          "Integer": true
+        }
+      },
+      {
+        "Key": "maxLookbackHours",
+        "Label": "最大回溯小时数",
+        "Type": "number",
+        "DefaultValue": "24",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 1,
+          "Maximum": 168,
+          "Integer": true
+        }
+      },
+      {
+        "Key": "cooldownSeconds",
+        "Label": "同会话纪要冷却秒数",
+        "Type": "number",
+        "DefaultValue": "20",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 5,
+          "Maximum": 300,
+          "Integer": true
+        }
+      }
+    ],
+    "ToolApiVersion": 1,
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Digest.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "1d8c1781ea82b42bbf428411f3a5b04c03ecdb8e0ef591c3a10b7d085e5bbcae",
+        "Owner": "preset.feature.digest"
+      }
+    ]
+  },
+  "metadata": {
+    "Name": "会话纪要",
+    "Summary": "按条数或时间窗口生成群聊与会话内容汇总纪要。",
+    "Description": "面向活跃会话提供可控冷却时间的聊天记录回顾与要点归纳工具，帮助成员快速把握历史讨论脉络。",
+    "Category": "会话策略",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "在「插件中心」安装并启用后，可在工具调用或聊天场景中触发会话纪要生成。",
+    "RiskNotice": "生成纪要会消耗主模型或接地模型额度，请结合同会话冷却与最大回溯窗口控制频次。",
+    "Configuration": "可在插件设置中调整默认汇总消息条数、最大回溯小时数以及同会话冷却秒数。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "声明 model.grounded-text 与 tools.execute；仅访问宿主注入的当前会话上下文端口，不外传未授权会话。",
+    "Tags": [
+      "会话纪要",
+      "会话策略",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

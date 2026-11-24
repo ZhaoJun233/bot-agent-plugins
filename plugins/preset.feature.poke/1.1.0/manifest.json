@@ -1,0 +1,22 @@
+{
+  "Id": "preset.feature.poke",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Poke.dll",
+  "EntryType": "BotAgent.Packages.Poke.PokePackagePlugin",
+  "Sha256": "fe2e4e87dcb8c33db8ce92b60eb9b65bc96980c74420b960e69e75449caf291e",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.poke-1.1.0/preset.feature.poke-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Poke.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "eb0dc896ec5d6c33992a752115ad3db3511642e7f6f7becea3944d7fb3152898",
+      "Owner": "preset.feature.poke"
+    }
+  ]
+}

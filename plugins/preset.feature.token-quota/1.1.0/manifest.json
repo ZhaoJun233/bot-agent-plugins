@@ -1,0 +1,68 @@
+{
+  "Id": "preset.feature.token-quota",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.TokenQuota.dll",
+  "EntryType": "BotAgent.Packages.TokenQuota.QuotaPlugin",
+  "Sha256": "0c4f5385598df49da0afb4ffd86498e29cc4d5b2bbc18abd6728d9b0da7ed240",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.token-quota-1.1.0/preset.feature.token-quota-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Quota.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "94ccee1fe99e34d547b5fec4a3be348fded61c031e842fa0e054d3e448c95711",
+      "Owner": "preset.feature.token-quota"
+    }
+  ],
+  "Data": {
+    "Tables": [
+      "tenant_quotas"
+    ],
+    "StatePrefixes": [
+      "quota:revision:",
+      "quota:receipts:"
+    ],
+    "Usage": true,
+    "Audit": true,
+    "Receipt": {
+      "Contract": "quota.management",
+      "Version": "1"
+    }
+  },
+  "Control": true,
+  "Ui": {
+    "ContractVersion": 1,
+    "Entry": "web/index.html",
+    "Assets": [
+      {
+        "Path": "web/index.html",
+        "Sha256": "4d8022d71f0aa08266596221728e45ef812391f748774c130cc3701db430c7d7",
+        "ContentType": "text/html; charset=utf-8"
+      },
+      {
+        "Path": "web/style.css",
+        "Sha256": "23033f7cdff2f71a7c977a043c6d2f265add3aae9e58942443152d3316088656",
+        "ContentType": "text/css; charset=utf-8"
+      },
+      {
+        "Path": "web/token-quota-runtime.js",
+        "Sha256": "2c2b726e1a554c996709f1a8cd237e2a893515039e2b0c6464d12d6127583e66",
+        "ContentType": "text/javascript; charset=utf-8"
+      }
+    ],
+    "AllowedActions": [
+      "quotas.list",
+      "quotas.save",
+      "quotas.find",
+      "operations.list",
+      "dialog.close"
+    ],
+    "Kind": "dialog",
+    "Title": "Token 配额"
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.scheduler",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Scheduler.dll",
+    "EntryType": "BotAgent.Packages.Scheduler.SchedulerPackagePlugin",
+    "Sha256": "da2e12560603d51723d437e63dd4f6c01747055dd477c6e7069884909cbfb51c",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.scheduler-1.1.0/preset.feature.scheduler-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [
+      "tools.execute"
+    ],
+    "Dependencies": [],
+    "Settings": [
+      {
+        "Key": "maxJobsPerScope",
+        "Label": "单会话最大定时任务数（上限 32）",
+        "Type": "number",
+        "DefaultValue": "32",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 1,
+          "Maximum": 32,
+          "Integer": true
+        }
+      },
+      {
+        "Key": "maxGlobalJobs",
+        "Label": "全局最大活跃定时任务数（上限 256）",
+        "Type": "number",
+        "DefaultValue": "256",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 8,
+          "Maximum": 256,
+          "Integer": true
+        }
+      },
+      {
+        "Key": "minCronIntervalMinutes",
+        "Label": "周期任务最小间隔（分钟，至少 5）",
+        "Type": "number",
+        "DefaultValue": "5",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 5,
+          "Maximum": 1440,
+          "Integer": true
+        }
+      }
+    ],
+    "ToolApiVersion": 1,
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Scheduler.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "fab7eb8c5e11a7c8024259cd038130d322168a11a0d38b528a1fea8931c2c445",
+        "Owner": "preset.feature.scheduler"
+      }
+    ],
+    "Ui": {
+      "ContractVersion": 1,
+      "Entry": "web/index.html",
+      "Assets": [
+        {
+          "Path": "web/index.html",
+          "Sha256": "1b4ed6ebdc027e3ae6c24289d9fb318a4334ef9c9dd97c92ccfb6c6b367bd76d",
+          "ContentType": "text/html; charset=utf-8"
+        },
+        {
+          "Path": "web/scheduler-runtime.js",
+          "Sha256": "3244ce6a55f19da586db8f29bbe8749de72c239a832dc73cc00a9432cbc8e9d3",
+          "ContentType": "text/javascript; charset=utf-8"
+        }
+      ],
+      "AllowedActions": [
+        "scheduler.list",
+        "scheduler.save",
+        "scheduler.delete",
+        "scheduler.runs",
+        "dialog.close"
+      ],
+      "Kind": "dialog",
+      "Title": "定时与提醒"
+    }
+  },
+  "metadata": {
+    "Name": "定时任务与提醒",
+    "Summary": "基于 Cron 表达式与时区校验的定时提醒与周期任务管理。",
+    "Description": "支持一次性提醒与受最小间隔约束的周期性提醒，附带独立沙箱管理弹窗用于查看、新建、启停与检查执行历史。",
+    "Category": "自动化与效率",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "在「插件中心」安装并启用后，可通过对话框工具或配套 UI 弹窗创建并管理提醒任务。",
+    "RiskNotice": "周期任务会按设定频率主动触发投递，请避免在多人高频群聊设置过密触发。",
+    "Configuration": "可在插件设置中限制单会话最大任务数、全局最大活跃任务数与周期任务最小间隔（不少于 5 分钟）。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "声明 tools.execute 及受限 UI 动作 scheduler.list/save/delete/runs；提醒投递受宿主冷却与会话策略限制。",
+    "Tags": [
+      "定时提醒",
+      "自动化与效率",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}
