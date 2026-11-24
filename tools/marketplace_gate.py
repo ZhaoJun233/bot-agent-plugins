@@ -8,8 +8,8 @@ from governance_refresh import check_approval_age, now_utc, parse
 from validate_pr import ARCHIVE, GENERATED, REVIEW, SUBMISSION, tree, validate_candidate
 
 MAINTAINER_FILES = {"governance/ledger.json", "governance.json", "catalog/builtins.json"}
-TOOLING_ROOTS = ("tools/", "schemas/", "examples/", "templates/", "sdk/", "tests/", "docs/", ".github/workflows/")
-TOOLING_FILES = {".gitattributes", ".gitignore", ".github/CODEOWNERS", "Directory.Build.props", "global.json",
+TOOLING_ROOTS = ("tools/", "schemas/", "examples/", "templates/", "sdk/", "plugins-src/", "tests/", "docs/", ".github/workflows/")
+TOOLING_FILES = {".gitattributes", ".gitignore", ".github/CODEOWNERS", "Directory.Build.props", "OfficialPlugins.slnx", "global.json",
                  "README.md", "README.en.md", "CONTRIBUTING.md", "CONTRIBUTING.en.md", "SECURITY.md",
                  "SECURITY.en.md", "LICENSE", "NOTICE"}
 

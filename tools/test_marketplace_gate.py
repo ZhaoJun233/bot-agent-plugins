@@ -33,9 +33,12 @@ class GateTests(unittest.TestCase):
 
     def test_tooling_has_its_own_lane_but_cannot_publish_data(self):
         self.assertEqual("tooling", classify_paths({"tools/package.py", ".github/workflows/validate.yml"}))
+        self.assertEqual("tooling", classify_paths({"plugins-src/music/backend/Plugin.cs", "OfficialPlugins.slnx"}))
         for path in ("submissions/example.plugin/1.0.0.json", "repository.json", "governance.json"):
             with self.subTest(path=path), self.assertRaisesRegex(ValueError, "separate PRs"):
                 classify_paths({"tools/validate.py", path})
+        with self.assertRaisesRegex(ValueError, "separate PRs"):
+            classify_paths({"plugins-src/music/backend/Plugin.cs", "submissions/preset.feature.music/1.1.0.json"})
 
     def test_unknown_and_empty_changes_are_not_approved(self):
         for paths in (set(), {".env"}, {"artifacts/plugin.zip"}, {"reviews/not-canonical.json"}):
