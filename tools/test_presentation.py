@@ -204,6 +204,10 @@ class PresentationTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "2 MiB"):
                 load_document(path)
 
+    def test_accepts_empty_builtins_with_package_only(self):
+        self.document["Entries"] = [copy.deepcopy(self.package)]
+        self.assertEqual(1, self.validate())
+
 
 if __name__ == "__main__":
     unittest.main()
