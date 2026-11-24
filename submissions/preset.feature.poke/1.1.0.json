@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.poke",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Poke.dll",
+    "EntryType": "BotAgent.Packages.Poke.PokePackagePlugin",
+    "Sha256": "fe2e4e87dcb8c33db8ce92b60eb9b65bc96980c74420b960e69e75449caf291e",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.poke-1.1.0/preset.feature.poke-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [],
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Poke.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "eb0dc896ec5d6c33992a752115ad3db3511642e7f6f7becea3944d7fb3152898",
+        "Owner": "preset.feature.poke"
+      }
+    ]
+  },
+  "metadata": {
+    "Name": "戳一戳",
+    "Summary": "戳一戳事件互动与防刷屏。",
+    "Description": "宿主处理戳一戳事件及消息协议，预设提供这项能力的开关入口。",
+    "Category": "会话互动",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "启用后由支持戳一戳事件的协议端触发互动。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+    "RiskNotice": "效果依赖协议端能力与宿主防刷屏策略，不保证所有平台支持。",
+    "Configuration": "通过对应插件配置设置启用状态与可用互动选项。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+    "Tags": [
+      "会话互动",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

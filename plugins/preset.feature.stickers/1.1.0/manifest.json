@@ -1,0 +1,48 @@
+{
+  "Id": "preset.feature.stickers",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Stickers.dll",
+  "EntryType": "BotAgent.Packages.Stickers.StickersPackagePlugin",
+  "Sha256": "5baf1b0e50905b2c5e16c64a6369ac8d2e4bb7afe6a55247174c7ebd4dec59bb",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.stickers-1.1.0/preset.feature.stickers-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Stickers.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "78fa92b5fb6e4a9434d6b965a89f9f14c5c95b61ce7347aa07e652ec1e830412",
+      "Owner": "preset.feature.stickers"
+    }
+  ],
+  "Ui": {
+    "ContractVersion": 1,
+    "Entry": "web/index.html",
+    "Assets": [
+      {
+        "Path": "web/index.html",
+        "Sha256": "ab15fd37d46089eecf6919b2a550a59632e6b5ce983ded55389d9c896a2357dc",
+        "ContentType": "text/html; charset=utf-8"
+      },
+      {
+        "Path": "web/stickers-runtime.js",
+        "Sha256": "3ce1f65e7c662879274167c42e7fa6f91dc5bb3e9095670ce804dd78f84d8397",
+        "ContentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "Path": "web/style.css",
+        "Sha256": "80c80e1c025846c547869001e2663f646dcb952404685474e65a669ea29d7c6f",
+        "ContentType": "text/css; charset=utf-8"
+      }
+    ],
+    "AllowedActions": [
+      "dialog.close"
+    ],
+    "Kind": "dialog",
+    "Title": "表情包协同与安全库"
+  }
+}

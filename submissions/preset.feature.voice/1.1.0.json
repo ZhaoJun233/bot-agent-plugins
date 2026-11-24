@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "manifest": {
+    "Id": "preset.feature.voice",
+    "Version": "1.1.0",
+    "EntryAssembly": "BotAgent.Package.Voice.dll",
+    "EntryType": "BotAgent.Packages.Voice.VoicePackagePlugin",
+    "Sha256": "5d08c23b04ba738341920812eac30526da682db71693fe8a86ff0e67d78b5d52",
+    "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.voice-1.1.0/preset.feature.voice-1.1.0.zip",
+    "ApiVersion": 1,
+    "TargetFramework": "net10.0",
+    "MinimumHostVersion": "1.4.0",
+    "Permissions": [],
+    "Dependencies": [],
+    "Settings": [
+      {
+        "Key": "sttEnabled",
+        "Label": "启用云端语音转写（STT）",
+        "Type": "boolean",
+        "DefaultValue": "false",
+        "Required": false
+      },
+      {
+        "Key": "sttEndpointUrl",
+        "Label": "STT 接口地址（留空自动拼接主模型根地址 /audio/transcriptions）",
+        "Type": "string",
+        "DefaultValue": "",
+        "Required": false
+      },
+      {
+        "Key": "sttModel",
+        "Label": "STT 模型名称",
+        "Type": "string",
+        "DefaultValue": "whisper-1",
+        "Required": false
+      },
+      {
+        "Key": "sttApiKey",
+        "Label": "STT 专用 API Key（留空回退主模型密钥）",
+        "Type": "secret",
+        "Required": false
+      },
+      {
+        "Key": "sttMaxSeconds",
+        "Label": "单条语音最大允许时长（秒）",
+        "Type": "number",
+        "DefaultValue": "60",
+        "Required": false,
+        "NumberConstraints": {
+          "Minimum": 5,
+          "Maximum": 120,
+          "Integer": true
+        }
+      }
+    ],
+    "SharedContracts": [
+      {
+        "Name": "BotAgent.Voice.Contracts",
+        "Version": "1.0.0.0",
+        "Sha256": "6dde60f38756a5ac374297f16acb72a492686a29b322213b7b7e34776085f904",
+        "Owner": "preset.feature.voice"
+      }
+    ]
+  },
+  "metadata": {
+    "Name": "语音合成",
+    "Summary": "通过外部 TTS 服务生成语音。",
+    "Description": "提供宿主 TTS 能力的配置入口，支持语音表达及会话级防连发控制，不是本地语音模型安装包。",
+    "Category": "音频与媒体",
+    "Author": "Bot Agent Contributors",
+    "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+    "License": "MIT",
+    "Usage": "先配置并启用云端 TTS，再在宿主支持语音的会话中使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+    "RiskNotice": "待合成文本可能发送至外部 TTS 服务；协议端负责语音格式转换。",
+    "Configuration": "配置音色、TTS 服务地址与语音开关；服务凭据从安全配置入口设置。",
+    "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+    "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+    "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+    "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+    "Tags": [
+      "音频与媒体",
+      "官方包"
+    ],
+    "Runtime": "dotnet",
+    "SourceKind": "official"
+  }
+}

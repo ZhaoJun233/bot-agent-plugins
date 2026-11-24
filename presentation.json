@@ -2,270 +2,6 @@
   "SchemaVersion": 1,
   "Entries": [
     {
-      "Id": "preset.feature.music",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "点歌与音乐分享",
-        "Category": "音频与媒体",
-        "Summary": "音乐卡片、点歌与音频解析入口。",
-        "Description": "宿主内置音乐能力的开关与配置入口，支持群聊音乐卡片解析及音乐分享；预设自身不包含独立处理器。",
-        "Usage": "在插件配置中启用音乐能力并配置音乐服务，再通过宿主支持的点歌交互使用。",
-        "Configuration": "配置音乐服务地址与相关能力开关；不在市场资料中保存服务密钥。",
-        "RiskNotice": "音乐服务可能联网并处理歌曲请求，实际行为由宿主负责。",
-        "Tags": [
-          "音频与媒体",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.voice",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "语音合成",
-        "Category": "音频与媒体",
-        "Summary": "通过外部 TTS 服务生成语音。",
-        "Description": "提供宿主 TTS 能力的配置入口，支持语音表达及会话级防连发控制，不是本地语音模型安装包。",
-        "Usage": "先配置并启用云端 TTS，再在宿主支持语音的会话中使用。",
-        "Configuration": "配置音色、TTS 服务地址与语音开关；服务凭据从安全配置入口设置。",
-        "RiskNotice": "待合成文本可能发送至外部 TTS 服务；协议端负责语音格式转换。",
-        "Tags": [
-          "音频与媒体",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.stickers",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "表情包",
-        "Category": "会话互动",
-        "Summary": "表情包收录、标签与协同发送入口。",
-        "Description": "宿主可学习收录表情图片、提取标签并按语境发送；预设提供配置入口，魔数校验不是内容安全保证。",
-        "Usage": "在表情包管理与配置入口启用后，按宿主的收录和发送策略使用。",
-        "Configuration": "配置表情包学习、审核与发送策略；请使用合成图片验证。",
-        "RiskNotice": "涉及图片处理与存储；启用前确认图片隐私和内容审核策略。",
-        "Tags": [
-          "会话互动",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.poke",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "戳一戳",
-        "Category": "会话互动",
-        "Summary": "戳一戳事件互动与防刷屏。",
-        "Description": "宿主处理戳一戳事件及消息协议，预设提供这项能力的开关入口。",
-        "Usage": "启用后由支持戳一戳事件的协议端触发互动。",
-        "Configuration": "通过对应插件配置设置启用状态与可用互动选项。",
-        "RiskNotice": "效果依赖协议端能力与宿主防刷屏策略，不保证所有平台支持。",
-        "Tags": [
-          "会话互动",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.vibes",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "群聊氛围",
-        "Category": "会话策略",
-        "Summary": "主动开口与话题互动的配置入口。",
-        "Description": "宿主内置群聊活跃策略入口，结合冷却与话题引导决定互动；并非独立调度插件。",
-        "Usage": "在配置入口启用并设置宿主当前支持的活跃策略。",
-        "Configuration": "使用现有策略设置；本阶段不修改回复节奏、等待或概率契约。",
-        "RiskNotice": "可能增加群聊主动消息；效果由宿主策略决定，勿将配置描述视作精确概率承诺。",
-        "Tags": [
-          "会话策略",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.profiles",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "人物画像",
-        "Category": "记忆与隐私",
-        "Summary": "成员画像与长期记忆配置入口。",
-        "Description": "宿主可抽样整理成员特征并更新长期记忆；预设本身仅提供配置与状态。",
-        "Usage": "了解隐私影响后，在画像相关配置入口启用和管理。",
-        "Configuration": "配置画像开关及宿主提供的采样选项；市场不展示成员档案或原始内容。",
-        "RiskNotice": "涉及真实成员信息和长期存储；仅在有正当权限时启用，验证必须使用合成数据。",
-        "Tags": [
-          "记忆与隐私",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.websearch",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "联网研究与链接摘要",
-        "Category": "检索与工具",
-        "Summary": "联网检索、链接摘要及引用整合。",
-        "Description": "宿主工具链提供网页检索、短文本摘要与引用整合；市场条目不授予额外联网权限。",
-        "Usage": "配置可用的检索服务后，由宿主在允许的任务中调用。",
-        "Configuration": "配置检索服务与联网能力开关；密钥只通过安全设置入口管理。",
-        "RiskNotice": "查询和链接可能交给外部服务，网页内容属于不可信输入。",
-        "Tags": [
-          "检索与工具",
-          "内置"
-        ]
-      }
-    },
-    {
-      "Id": "preset.feature.token-quota",
-      "Version": "1.0.0",
-      "PackageSha256": null,
-      "Metadata": {
-        "Author": "Bot Agent Contributors",
-        "Repository": "https://github.com/ZhaoJun233/bot-agent",
-        "License": "MIT",
-        "Runtime": "builtin",
-        "SourceKind": "builtin",
-        "Changelog": "1.0.0：随宿主内置提供；本阶段仅补充市场资料，没有独立安装包。",
-        "Maintenance": "随宿主维护",
-        "Compatibility": "仅对当前宿主实际注册的同 ID、同版本预设展示；兼容性随宿主版本，不可独立安装。",
-        "PermissionNotes": "没有独立包权限清单；实际权限由宿主配置与工具策略控制。",
-        "Review": {
-          "Status": "unreviewed",
-          "Version": "1.0.0",
-          "Sha256": null,
-          "Notes": "随宿主发布，不代表独立插件包已经通过安全审核。"
-        },
-        "Name": "Token 配额",
-        "Category": "用量与治理",
-        "Summary": "限制每日 Token 消耗的宿主记账能力。",
-        "Description": "内置配额守卫维护群聊的日配额与已用额度；不包含独立可下载的计费或支付插件。",
-        "Usage": "在配额配置入口设置上限，宿主按既有记账规则统计。",
-        "Configuration": "配置每日配额和相关启用状态；市场只显示描述，不读取真实群配额。",
-        "RiskNotice": "统计和限额口径依赖宿主记账实现，不是第三方账单或扣费保证。",
-        "Tags": [
-          "用量与治理",
-          "内置"
-        ]
-      }
-    },
-    {
       "Id": "community.example.hello",
       "Version": "1.0.0",
       "PackageSha256": "01dccbf848c9c9fbd5797e47a86339b79a4963eb585fc8157ff74768145c50cb",
@@ -333,6 +69,479 @@
           "ReviewedAt": "2026-11-11T13:09:31Z",
           "Notes": "维护者已批准固定源码和发布产物；不可变 Release 的独立下载、完整清单、ZIP、版本与真实 Core 初始化/关闭检查已通过。声明权限和校验和不代表进程沙箱或整体安全验收。",
           "SourceRevision": "9025491d051d894f161565a225c2e7dbc66abefd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.digest",
+      "Version": "1.1.0",
+      "PackageSha256": "d4913e05a827234c510dcee005338ec142daa103cace9786d696625fb77005d6",
+      "Metadata": {
+        "Name": "会话纪要",
+        "Summary": "按条数或时间窗口生成群聊与会话内容汇总纪要。",
+        "Description": "面向活跃会话提供可控冷却时间的聊天记录回顾与要点归纳工具，帮助成员快速把握历史讨论脉络。",
+        "Category": "会话策略",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在「插件中心」安装并启用后，可在工具调用或聊天场景中触发会话纪要生成。",
+        "RiskNotice": "生成纪要会消耗主模型或接地模型额度，请结合同会话冷却与最大回溯窗口控制频次。",
+        "Configuration": "可在插件设置中调整默认汇总消息条数、最大回溯小时数以及同会话冷却秒数。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明 model.grounded-text 与 tools.execute；仅访问宿主注入的当前会话上下文端口，不外传未授权会话。",
+        "Tags": [
+          "会话纪要",
+          "会话策略",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "d4913e05a827234c510dcee005338ec142daa103cace9786d696625fb77005d6",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.documents",
+      "Version": "1.1.0",
+      "PackageSha256": "45f3415be7abf3391ea377313d91affc2a5dab248539aa501926b5e716138fff",
+      "Metadata": {
+        "Name": "文档与附件提取",
+        "Summary": "从入站 PDF、文本与办公文档提取纯文本内容。",
+        "Description": "解析群聊或私聊上传的文档附件，支持基于文件魔数与大小限制的安全提取，并为模型提供受边界约束的文档阅读工具。",
+        "Category": "检索与工具",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在「插件中心」安装并启用后，可在会话设置中开启文档提取并调用文档阅读工具。",
+        "RiskNotice": "解析外部文档内容前会校验大小与魔数，但文档文本仍属于不可信外部输入。",
+        "Configuration": "可在插件设置中配置入站自动摘取首屏、单文件最大字节数（上限 10 MiB）及单次提取最大字符数。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明 network.public-read（按安全 URL 获取文档）与 tools.execute；受宿主私有网段屏蔽与大小上限约束。",
+        "Tags": [
+          "文档解析",
+          "检索与工具",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "45f3415be7abf3391ea377313d91affc2a5dab248539aa501926b5e716138fff",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.knowledge",
+      "Version": "1.1.0",
+      "PackageSha256": "3e475559b5320dbdf361e73944dc2004fe6f0ea7303fe770562f9b4f4bdd5e70",
+      "Metadata": {
+        "Name": "知识库沉淀",
+        "Summary": "按会话作用域存储、分块检索与管理轻量知识文档。",
+        "Description": "提供基于宿主受控存储的知识库导入、分段切片与关键词 Top-K 检索能力，支持在对话中引用已有资料。",
+        "Category": "记忆与隐私",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在「插件中心」安装并启用后，可通过工具写入并检索当前会话作用域内的知识文档。",
+        "RiskNotice": "知识库文档仅存储在当前宿主实例目录中，请在导入前确认成员信息与文档合规边界。",
+        "Configuration": "可在插件设置中调整单会话最大文档数、分块最大字符数及默认检索返回片段数。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明 tools.execute；数据读写完全经宿主作用域端口隔离，不直接暴露底层数据库连接。",
+        "Tags": [
+          "知识库",
+          "记忆与隐私",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "3e475559b5320dbdf361e73944dc2004fe6f0ea7303fe770562f9b4f4bdd5e70",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.music",
+      "Version": "1.1.0",
+      "PackageSha256": "54a3d91f789f741cf0c79245a5ce5f9372ba1a3b319180a3ac6418b008e8e51b",
+      "Metadata": {
+        "Name": "点歌与音乐分享",
+        "Summary": "音乐卡片、点歌与音频解析入口。",
+        "Description": "宿主内置音乐能力的开关与配置入口，支持群聊音乐卡片解析及音乐分享；预设自身不包含独立处理器。",
+        "Category": "音频与媒体",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在插件配置中启用音乐能力并配置音乐服务，再通过宿主支持的点歌交互使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "音乐服务可能联网并处理歌曲请求，实际行为由宿主负责。",
+        "Configuration": "配置音乐服务地址与相关能力开关；不在市场资料中保存服务密钥。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "音频与媒体",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "54a3d91f789f741cf0c79245a5ce5f9372ba1a3b319180a3ac6418b008e8e51b",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.personal-todo",
+      "Version": "1.1.0",
+      "PackageSha256": "a268c321a9762cdb9229ec439094ff32981ada0fa6130e2158500dcf7852c798",
+      "Metadata": {
+        "Name": "个人待办",
+        "Summary": "私聊与个人工作区作用域的待办事项收集、完成与清理。",
+        "Description": "为个人私聊和专属工作区提供轻量任务清单与关联提醒能力，并包含只读来源约束的独立管理弹窗。",
+        "Category": "自动化与效率",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在「插件中心」安装并启用后，可在私聊或个人工作区中通过工具及弹窗维护待办事项。",
+        "RiskNotice": "仅限个人工作区与私聊访问，不会向群聊暴露个人待办记录。",
+        "Configuration": "可在插件设置中调整单人最大待办数量上限（最高 256 项）。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明 tools.execute 及受限 UI 动作 todo.list/save/delete；严格限定仅在私聊及 owner 工作区生效。",
+        "Tags": [
+          "个人待办",
+          "自动化与效率",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "a268c321a9762cdb9229ec439094ff32981ada0fa6130e2158500dcf7852c798",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.poke",
+      "Version": "1.1.0",
+      "PackageSha256": "fe2e4e87dcb8c33db8ce92b60eb9b65bc96980c74420b960e69e75449caf291e",
+      "Metadata": {
+        "Name": "戳一戳",
+        "Summary": "戳一戳事件互动与防刷屏。",
+        "Description": "宿主处理戳一戳事件及消息协议，预设提供这项能力的开关入口。",
+        "Category": "会话互动",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "启用后由支持戳一戳事件的协议端触发互动。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "效果依赖协议端能力与宿主防刷屏策略，不保证所有平台支持。",
+        "Configuration": "通过对应插件配置设置启用状态与可用互动选项。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "会话互动",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "fe2e4e87dcb8c33db8ce92b60eb9b65bc96980c74420b960e69e75449caf291e",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.profiles",
+      "Version": "1.1.0",
+      "PackageSha256": "3dbaacfe04b2990885afe88f0d01f052388c7c43ff763052b2bb1338dc243480",
+      "Metadata": {
+        "Name": "人物画像",
+        "Summary": "成员画像与长期记忆配置入口。",
+        "Description": "宿主可抽样整理成员特征并更新长期记忆；预设本身仅提供配置与状态。",
+        "Category": "记忆与隐私",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "了解隐私影响后，在画像相关配置入口启用和管理。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "涉及真实成员信息和长期存储；仅在有正当权限时启用，验证必须使用合成数据。",
+        "Configuration": "配置画像开关及宿主提供的采样选项；市场不展示成员档案或原始内容。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "记忆与隐私",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "3dbaacfe04b2990885afe88f0d01f052388c7c43ff763052b2bb1338dc243480",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.scheduler",
+      "Version": "1.1.0",
+      "PackageSha256": "da2e12560603d51723d437e63dd4f6c01747055dd477c6e7069884909cbfb51c",
+      "Metadata": {
+        "Name": "定时任务与提醒",
+        "Summary": "基于 Cron 表达式与时区校验的定时提醒与周期任务管理。",
+        "Description": "支持一次性提醒与受最小间隔约束的周期性提醒，附带独立沙箱管理弹窗用于查看、新建、启停与检查执行历史。",
+        "Category": "自动化与效率",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在「插件中心」安装并启用后，可通过对话框工具或配套 UI 弹窗创建并管理提醒任务。",
+        "RiskNotice": "周期任务会按设定频率主动触发投递，请避免在多人高频群聊设置过密触发。",
+        "Configuration": "可在插件设置中限制单会话最大任务数、全局最大活跃任务数与周期任务最小间隔（不少于 5 分钟）。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：首次作为官方独立插件包发布至插件市场仓库。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明 tools.execute 及受限 UI 动作 scheduler.list/save/delete/runs；提醒投递受宿主冷却与会话策略限制。",
+        "Tags": [
+          "定时提醒",
+          "自动化与效率",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "da2e12560603d51723d437e63dd4f6c01747055dd477c6e7069884909cbfb51c",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.stickers",
+      "Version": "1.1.0",
+      "PackageSha256": "5baf1b0e50905b2c5e16c64a6369ac8d2e4bb7afe6a55247174c7ebd4dec59bb",
+      "Metadata": {
+        "Name": "表情包",
+        "Summary": "表情包收录、标签与协同发送入口。",
+        "Description": "宿主可学习收录表情图片、提取标签并按语境发送；预设提供配置入口，魔数校验不是内容安全保证。",
+        "Category": "会话互动",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在表情包管理与配置入口启用后，按宿主的收录和发送策略使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "涉及图片处理与存储；启用前确认图片隐私和内容审核策略。",
+        "Configuration": "配置表情包学习、审核与发送策略；请使用合成图片验证。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "会话互动",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "5baf1b0e50905b2c5e16c64a6369ac8d2e4bb7afe6a55247174c7ebd4dec59bb",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.token-quota",
+      "Version": "1.1.0",
+      "PackageSha256": "0c4f5385598df49da0afb4ffd86498e29cc4d5b2bbc18abd6728d9b0da7ed240",
+      "Metadata": {
+        "Name": "Token 配额",
+        "Summary": "限制每日 Token 消耗的宿主记账能力。",
+        "Description": "内置配额守卫维护群聊的日配额与已用额度；不包含独立可下载的计费或支付插件。",
+        "Category": "用量与治理",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在配额配置入口设置上限，宿主按既有记账规则统计。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "统计和限额口径依赖宿主记账实现，不是第三方账单或扣费保证。",
+        "Configuration": "配置每日配额和相关启用状态；市场只显示描述，不读取真实群配额。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "用量与治理",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "0c4f5385598df49da0afb4ffd86498e29cc4d5b2bbc18abd6728d9b0da7ed240",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.vibes",
+      "Version": "1.1.0",
+      "PackageSha256": "0d277652dfebe8e6c840ca2ab62f5e702662bfa6205cd247c4d9fafc55166606",
+      "Metadata": {
+        "Name": "群聊氛围",
+        "Summary": "主动开口与话题互动的配置入口。",
+        "Description": "宿主内置群聊活跃策略入口，结合冷却与话题引导决定互动；并非独立调度插件。",
+        "Category": "会话策略",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "在配置入口启用并设置宿主当前支持的活跃策略。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "可能增加群聊主动消息；效果由宿主策略决定，勿将配置描述视作精确概率承诺。",
+        "Configuration": "使用现有策略设置；本阶段不修改回复节奏、等待或概率契约。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "会话策略",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "0d277652dfebe8e6c840ca2ab62f5e702662bfa6205cd247c4d9fafc55166606",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.voice",
+      "Version": "1.1.0",
+      "PackageSha256": "5d08c23b04ba738341920812eac30526da682db71693fe8a86ff0e67d78b5d52",
+      "Metadata": {
+        "Name": "语音合成",
+        "Summary": "通过外部 TTS 服务生成语音。",
+        "Description": "提供宿主 TTS 能力的配置入口，支持语音表达及会话级防连发控制，不是本地语音模型安装包。",
+        "Category": "音频与媒体",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "先配置并启用云端 TTS，再在宿主支持语音的会话中使用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "待合成文本可能发送至外部 TTS 服务；协议端负责语音格式转换。",
+        "Configuration": "配置音色、TTS 服务地址与语音开关；服务凭据从安全配置入口设置。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "未声明额外联网或执行权限；特权资源与端口绑定仍受宿主官方白名单校验。",
+        "Tags": [
+          "音频与媒体",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "5d08c23b04ba738341920812eac30526da682db71693fe8a86ff0e67d78b5d52",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
+        }
+      }
+    },
+    {
+      "Id": "preset.feature.websearch",
+      "Version": "1.1.0",
+      "PackageSha256": "6f7f2ce32d2f620d2db8e9bdcb1a245b51c36ab503660c2f31f20ac26d371be0",
+      "Metadata": {
+        "Name": "联网研究与链接摘要",
+        "Summary": "联网检索、链接摘要及引用整合。",
+        "Description": "宿主工具链提供网页检索、短文本摘要与引用整合；市场条目不授予额外联网权限。",
+        "Category": "检索与工具",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "配置可用的检索服务后，由宿主在允许的任务中调用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "查询和链接可能交给外部服务，网页内容属于不可信输入。",
+        "Configuration": "配置检索服务与联网能力开关；密钥只通过安全设置入口管理。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.0：从主仓库 builtin 预设迁移至官方插件市场仓库独立发行。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明权限：network.public-read, model.grounded-text, tools.execute；仍受宿主官方白名单与端口作用域约束。",
+        "Tags": [
+          "检索与工具",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.0",
+          "Sha256": "6f7f2ce32d2f620d2db8e9bdcb1a245b51c36ab503660c2f31f20ac26d371be0",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-24T11:10:42Z",
+          "Notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
         }
       }
     }

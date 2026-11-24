@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "preset.feature.knowledge",
+  "version": "1.1.0",
+  "sha256": "3e475559b5320dbdf361e73944dc2004fe6f0ea7303fe770562f9b4f4bdd5e70",
+  "sourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd",
+  "reviewer": "ZhaoJun233",
+  "reviewedAt": "2026-11-24T11:10:42Z",
+  "evidence": [
+    "https://github.com/ZhaoJun233/bot-agent-plugins/commit/f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/releases/tag/preset.feature.knowledge-1.1.0",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/actions/runs/45380809764"
+  ],
+  "notes": "维护者已核验 1.1.0 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产哈希一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。"
+}

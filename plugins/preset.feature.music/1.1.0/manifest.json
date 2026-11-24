@@ -1,0 +1,22 @@
+{
+  "Id": "preset.feature.music",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Music.dll",
+  "EntryType": "BotAgent.Packages.Music.MusicPackagePlugin",
+  "Sha256": "54a3d91f789f741cf0c79245a5ce5f9372ba1a3b319180a3ac6418b008e8e51b",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.music-1.1.0/preset.feature.music-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Music.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "2015a982a2d71ddebb72925cc223eb13da59d4eda02f4828d8bd32d77abd0ac7",
+      "Owner": "preset.feature.music"
+    }
+  ]
+}
