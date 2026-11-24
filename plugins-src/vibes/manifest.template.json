@@ -1,0 +1,22 @@
+{
+  "Id": "preset.feature.vibes",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Vibes.dll",
+  "EntryType": "BotAgent.Packages.Vibes.VibesPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.vibes-1.1.0/preset.feature.vibes-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Vibes.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.vibes"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "Id": "preset.feature.stickers",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Stickers.dll",
+  "EntryType": "BotAgent.Packages.Stickers.StickersPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.stickers-1.1.0/preset.feature.stickers-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [],
+  "Dependencies": [],
+  "Settings": [],
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Stickers.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.stickers"
+    }
+  ],
+  "Ui": {
+    "ContractVersion": 1,
+    "Entry": "web/index.html",
+    "Assets": [
+      {
+        "Path": "web/index.html",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/html; charset=utf-8"
+      },
+      {
+        "Path": "web/stickers-runtime.js",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/javascript; charset=utf-8"
+      },
+      {
+        "Path": "web/style.css",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/css; charset=utf-8"
+      }
+    ],
+    "AllowedActions": [
+      "dialog.close"
+    ],
+    "Kind": "dialog",
+    "Title": "表情包协同与安全库"
+  }
+}

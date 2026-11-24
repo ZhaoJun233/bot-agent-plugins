@@ -1,0 +1,87 @@
+{
+  "Id": "preset.feature.scheduler",
+  "Version": "1.1.0",
+  "EntryAssembly": "BotAgent.Package.Scheduler.dll",
+  "EntryType": "BotAgent.Packages.Scheduler.SchedulerPackagePlugin",
+  "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.scheduler-1.1.0/preset.feature.scheduler-1.1.0.zip",
+  "ApiVersion": 1,
+  "TargetFramework": "net10.0",
+  "MinimumHostVersion": "1.4.0",
+  "Permissions": [
+    "tools.execute"
+  ],
+  "Dependencies": [],
+  "Settings": [
+    {
+      "Key": "maxJobsPerScope",
+      "Label": "单会话最大定时任务数（上限 32）",
+      "Type": "number",
+      "DefaultValue": "32",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 1,
+        "Maximum": 32,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "maxGlobalJobs",
+      "Label": "全局最大活跃定时任务数（上限 256）",
+      "Type": "number",
+      "DefaultValue": "256",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 8,
+        "Maximum": 256,
+        "Integer": true
+      }
+    },
+    {
+      "Key": "minCronIntervalMinutes",
+      "Label": "周期任务最小间隔（分钟，至少 5）",
+      "Type": "number",
+      "DefaultValue": "5",
+      "Required": false,
+      "NumberConstraints": {
+        "Minimum": 5,
+        "Maximum": 1440,
+        "Integer": true
+      }
+    }
+  ],
+  "ToolApiVersion": 1,
+  "SharedContracts": [
+    {
+      "Name": "BotAgent.Scheduler.Contracts",
+      "Version": "1.0.0.0",
+      "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "Owner": "preset.feature.scheduler"
+    }
+  ],
+  "Ui": {
+    "ContractVersion": 1,
+    "Entry": "web/index.html",
+    "Assets": [
+      {
+        "Path": "web/index.html",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/html; charset=utf-8"
+      },
+      {
+        "Path": "web/scheduler-runtime.js",
+        "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "ContentType": "text/javascript; charset=utf-8"
+      }
+    ],
+    "AllowedActions": [
+      "scheduler.list",
+      "scheduler.save",
+      "scheduler.delete",
+      "scheduler.runs",
+      "dialog.close"
+    ],
+    "Kind": "dialog",
+    "Title": "定时与提醒"
+  }
+}

@@ -407,6 +407,27 @@ class CatalogTests(unittest.TestCase):
         self.assertIn("pull_request_target:", (ROOT / ".github/workflows/validate.yml").read_text())
         self.assertIn("environment: marketplace-review", (ROOT / ".github/workflows/maintainer-review.yml").read_text())
 
+    def test_official_preset_requires_maintainer_lane_and_official_source_kind(self):
+        official = copy.deepcopy(self.record)
+        official["manifest"]["Id"] = "preset.feature.music"
+        official["manifest"]["Version"] = "1.1.0"
+        official["manifest"]["TargetFramework"] = "net10.0"
+        official["manifest"]["DownloadUrl"] = (
+            "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/"
+            "preset.feature.music-1.1.0/preset.feature.music-1.1.0.zip"
+        )
+        official["metadata"]["Repository"] = "https://github.com/ZhaoJun233/bot-agent-plugins"
+        official["metadata"]["SourceKind"] = "official"
+        self.put("submissions/preset.feature.music/1.1.0.json", official)
+        synchronize(self.candidate)
+        with self.assertRaisesRegex(ValueError, "maintainer lane"):
+            validate_candidate(self.base, self.candidate, "contributor")
+        validate_candidate(self.base, self.candidate, "maintainer")
+        official["metadata"]["SourceKind"] = "community"
+        self.put("submissions/preset.feature.music/1.1.0.json", official)
+        with self.assertRaisesRegex(ValueError, "SourceKind official"):
+            generate(self.candidate)
+
 
 if __name__ == "__main__":
     unittest.main()

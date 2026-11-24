@@ -65,6 +65,11 @@ def validate_candidate(base, candidate, lane="contributor"):
             raise ValueError("Protected/non-submission path changed: " + path)
     previous = submissions(base)
     current = submissions(candidate)
+    if lane == "contributor":
+        for identity, record in current.items():
+            if previous.get(identity) != record and (
+                    identity[0].startswith("preset.feature.") or record["metadata"]["SourceKind"] == "official"):
+                raise ValueError("Official preset submissions require maintainer lane")
     for identity, record in previous.items():
         if identity not in current or current[identity]["manifest"] != record["manifest"]:
             raise ValueError("Published id/version manifest cannot change or disappear")

@@ -2,6 +2,49 @@ using System.Reflection;
 using System.Runtime.Loader;
 
 // Maintainer-only: reflection below executes the selected plugin. Never run on a contributor PR.
+if (args.Length >= 1 && args[0] == "--official")
+{
+    if (args.Length != 7)
+        throw new ArgumentException("Usage: ContractProbe --official <contracts-dir> <host-core.dll> <plugin.dll> <entry-type> <id> <version>");
+    var contractsDir = Path.GetFullPath(args[1]);
+    var hostCorePath = Path.GetFullPath(args[2]);
+    var pluginDllPath = Path.GetFullPath(args[3]);
+    var officialEntryType = args[4];
+    var officialExpectedId = args[5];
+    var officialExpectedVersion = args[6];
+    var pluginDir = Path.GetDirectoryName(pluginDllPath)!;
+
+    AssemblyLoadContext.Default.Resolving += (_, name) =>
+    {
+        if (string.IsNullOrWhiteSpace(name.Name)) return null;
+        if (string.Equals(name.Name, "BotAgent.Core", StringComparison.OrdinalIgnoreCase))
+            return AssemblyLoadContext.Default.LoadFromAssemblyPath(hostCorePath);
+        var hostCandidate = Path.Combine(contractsDir, name.Name + ".dll");
+        if (File.Exists(hostCandidate))
+            return AssemblyLoadContext.Default.LoadFromAssemblyPath(hostCandidate);
+        var pluginCandidate = Path.Combine(pluginDir, name.Name + ".dll");
+        return File.Exists(pluginCandidate)
+            ? AssemblyLoadContext.Default.LoadFromAssemblyPath(pluginCandidate)
+            : null;
+    };
+
+    var officialCore = AssemblyLoadContext.Default.LoadFromAssemblyPath(hostCorePath);
+    var officialContract = officialCore.GetType("BotAgent.Domain.Plugins.IBotPlugin", throwOnError: true)!;
+    var officialPluginAsm = AssemblyLoadContext.Default.LoadFromAssemblyPath(pluginDllPath);
+    var officialType = officialPluginAsm.GetType(officialEntryType, throwOnError: true)!;
+    if (!officialContract.IsAssignableFrom(officialType))
+        throw new InvalidOperationException("Official host contract mismatch.");
+    var officialPlugin = Activator.CreateInstance(officialType)!;
+    foreach (var (property, expected) in new[] { ("Id", officialExpectedId), ("Version", officialExpectedVersion) })
+        if (!Equals(officialContract.GetProperty(property)!.GetValue(officialPlugin), expected))
+            throw new InvalidOperationException($"Official metadata mismatch: {property}");
+    foreach (var property in new[] { "Name", "Description" })
+        if (string.IsNullOrWhiteSpace(officialContract.GetProperty(property)!.GetValue(officialPlugin) as string))
+            throw new InvalidOperationException($"Official metadata blank: {property}");
+    Console.WriteLine($"PASS official: {officialExpectedId}@{officialExpectedVersion} against {officialCore.FullName}");
+    return;
+}
+
 if (args.Length != 2 && args.Length != 5)
     throw new ArgumentException("Usage: ContractProbe <host-core.dll> <plugin.dll> [<entry-type> <id> <version>]");
 var entryType = args.Length == 5 ? args[2] : "Marketplace.Examples.HelloPlugin";

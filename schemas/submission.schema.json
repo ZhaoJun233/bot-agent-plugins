@@ -125,7 +125,7 @@
           "enum": ["dotnet", "python"]
         },
         "SourceKind": {
-          "const": "community"
+          "enum": ["official", "community"]
         }
       }
     }
