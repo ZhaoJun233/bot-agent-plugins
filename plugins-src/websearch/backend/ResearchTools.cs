@@ -10,11 +10,11 @@ internal sealed class ResearchTools(ResearchCoordinator research) : IToolContrib
     public ToolDefinition[] DescribeTools() =>
     [
         new(new("web.search", ToolCategory.WebRead, "联网搜索", true, "research.actions",
-            "search（要联网查的问题，2~120 字）", ToolDefaultPolicy.FollowSwitch,
+            "query（要联网查的问题，2~120 字）", ToolDefaultPolicy.FollowSwitch,
             FeatureKey: ToolFeature.WebSearch, Origin: ToolOrigin.Plugin),
             [new("query", Required: true, MinLength: 2, MaxLength: 120)]),
         new(new("web.read", ToolCategory.WebRead, "读网页正文", true, "research.actions",
-            "read（要读的网页 URL）", ToolDefaultPolicy.FollowSwitch,
+            "url（要读的网页 URL）", ToolDefaultPolicy.FollowSwitch,
             FeatureKey: ToolFeature.WebSearch, Origin: ToolOrigin.Plugin),
             [new("url", Required: true, MinLength: 8, MaxLength: 2000)], HttpUrlField: "url")
     ];

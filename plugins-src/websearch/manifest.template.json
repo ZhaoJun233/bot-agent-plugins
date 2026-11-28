@@ -1,10 +1,10 @@
 {
   "Id": "preset.feature.websearch",
-  "Version": "1.1.0",
+  "Version": "1.1.1",
   "EntryAssembly": "BotAgent.Package.WebSearch.dll",
   "EntryType": "BotAgent.Packages.WebSearch.ResearchControlPlugin",
   "Sha256": "0000000000000000000000000000000000000000000000000000000000000000",
-  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.websearch-1.1.0/preset.feature.websearch-1.1.0.zip",
+  "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.websearch-1.1.1/preset.feature.websearch-1.1.1.zip",
   "ApiVersion": 1,
   "TargetFramework": "net10.0",
   "MinimumHostVersion": "1.4.0",
