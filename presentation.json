@@ -544,6 +544,42 @@
           "SourceRevision": "f0d03b5bcfe0b2ce8ca5afb0b933af8b24fb31bd"
         }
       }
+    },
+    {
+      "Id": "preset.feature.websearch",
+      "Version": "1.1.1",
+      "PackageSha256": "9f09f76b08f1570e4578c2e6721b39a421cabcd9070a40a90781712b8a97aee2",
+      "Metadata": {
+        "Name": "联网研究与链接摘要",
+        "Summary": "联网检索、链接摘要及引用整合。",
+        "Description": "宿主工具链提供网页检索、短文本摘要与引用整合；市场条目不授予额外联网权限。",
+        "Category": "检索与工具",
+        "Author": "Bot Agent Contributors",
+        "Repository": "https://github.com/ZhaoJun233/bot-agent-plugins",
+        "License": "MIT",
+        "Usage": "配置可用的检索服务后，由宿主在允许的任务中调用。 现已从主仓库迁出为独立官方插件包，可通过「插件中心」按需安装或更新。",
+        "RiskNotice": "查询和链接可能交给外部服务，网页内容属于不可信输入。",
+        "Configuration": "配置检索服务与联网能力开关；密钥只通过安全设置入口管理。",
+        "Compatibility": "Plugin API v1，目标框架 net10.0，最低宿主版本 1.4.0；声明共享契约需冷启重启生效，支持从历史内置 1.0.0 平滑升级。",
+        "Changelog": "1.1.1：统一 web.search / web.read 参数提示为 query / url，并为 Wikipedia / API 搜索源使用合规 Bot User-Agent 修复 HTTP 429 拦截。",
+        "Maintenance": "由 Bot Agent 官方团队随插件市场仓库维护",
+        "PermissionNotes": "声明权限：network.public-read, model.grounded-text, tools.execute；仍受宿主官方白名单与端口作用域约束。",
+        "Tags": [
+          "检索与工具",
+          "官方包"
+        ],
+        "Runtime": "dotnet",
+        "SourceKind": "official",
+        "Review": {
+          "Status": "reviewed",
+          "Version": "1.1.1",
+          "Sha256": "9f09f76b08f1570e4578c2e6721b39a421cabcd9070a40a90781712b8a97aee2",
+          "Reviewer": "ZhaoJun233",
+          "ReviewedAt": "2026-11-28T08:59:00Z",
+          "Notes": "维护者已核验 1.1.1 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产下载重检 SHA-256 一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。",
+          "SourceRevision": "09b77e393104df6adc318cfad47378caf1141c19"
+        }
+      }
     }
   ]
 }

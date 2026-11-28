@@ -929,6 +929,191 @@
               ]
             }
           }
+        },
+        {
+          "Version": "1.1.1",
+          "Manifest": {
+            "Id": "preset.feature.websearch",
+            "Version": "1.1.1",
+            "EntryAssembly": "BotAgent.Package.WebSearch.dll",
+            "EntryType": "BotAgent.Packages.WebSearch.ResearchControlPlugin",
+            "Sha256": "9f09f76b08f1570e4578c2e6721b39a421cabcd9070a40a90781712b8a97aee2",
+            "DownloadUrl": "https://github.com/ZhaoJun233/bot-agent-plugins/releases/download/preset.feature.websearch-1.1.1/preset.feature.websearch-1.1.1.zip",
+            "ApiVersion": 1,
+            "TargetFramework": "net10.0",
+            "MinimumHostVersion": "1.4.0",
+            "Permissions": [
+              "network.public-read",
+              "model.grounded-text",
+              "tools.execute"
+            ],
+            "Dependencies": [],
+            "Settings": [
+              {
+                "Key": "enableLinkPreview",
+                "Label": "链接预览",
+                "Type": "boolean",
+                "DefaultValue": "true",
+                "Required": false
+              },
+              {
+                "Key": "enableWebSearch",
+                "Label": "联网搜索",
+                "Type": "boolean",
+                "DefaultValue": "true",
+                "Required": false
+              },
+              {
+                "Key": "webSearchUseModelSearch",
+                "Label": "优先使用模型搜索",
+                "Type": "boolean",
+                "DefaultValue": "true",
+                "Required": false
+              },
+              {
+                "Key": "webSearchSources",
+                "Label": "搜索源模板",
+                "Type": "string",
+                "DefaultValue": "wiki|https://zh.wikipedia.org/w/api.php?action=query&list=search&srsearch={q}&format=json&srlimit=5&utf8=1",
+                "Required": false
+              },
+              {
+                "Key": "webSearchMaxResults",
+                "Label": "搜索结果数量",
+                "Type": "number",
+                "DefaultValue": "5",
+                "Required": false,
+                "NumberConstraints": {
+                  "Minimum": 1,
+                  "Maximum": 10,
+                  "Integer": true
+                }
+              },
+              {
+                "Key": "webSearchCooldownSeconds",
+                "Label": "搜索冷却（秒）",
+                "Type": "number",
+                "DefaultValue": "30",
+                "Required": false,
+                "NumberConstraints": {
+                  "Minimum": 0,
+                  "Maximum": 86400,
+                  "Integer": true
+                }
+              },
+              {
+                "Key": "webSearchTimeoutSeconds",
+                "Label": "搜索超时（秒）",
+                "Type": "number",
+                "DefaultValue": "20",
+                "Required": false,
+                "NumberConstraints": {
+                  "Minimum": 5,
+                  "Maximum": 60,
+                  "Integer": true
+                }
+              },
+              {
+                "Key": "linkPreviewTimeoutSeconds",
+                "Label": "链接预览超时（秒）",
+                "Type": "number",
+                "DefaultValue": "5",
+                "Required": false,
+                "NumberConstraints": {
+                  "Minimum": 2,
+                  "Maximum": 30,
+                  "Integer": true
+                }
+              },
+              {
+                "Key": "linkPreviewMax",
+                "Label": "链接预览数量",
+                "Type": "number",
+                "DefaultValue": "3",
+                "Required": false,
+                "NumberConstraints": {
+                  "Minimum": 0,
+                  "Maximum": 5,
+                  "Integer": true
+                }
+              }
+            ],
+            "ToolApiVersion": 1,
+            "SharedContracts": [
+              {
+                "Name": "BotAgent.Research.Contracts",
+                "Version": "1.0.0.0",
+                "Sha256": "76728f5d4034aacbb2094b7a12a27cf9982fd0c7fc23f4444033626c06bbc82b",
+                "Owner": "preset.feature.websearch"
+              }
+            ],
+            "Control": true,
+            "Configuration": {
+              "ApiVersion": 1,
+              "Bindings": [
+                {
+                  "Key": "enableLinkPreview",
+                  "LegacyFieldId": 39,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "enableWebSearch",
+                  "LegacyFieldId": 49,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "webSearchUseModelSearch",
+                  "LegacyFieldId": 140,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "webSearchSources",
+                  "LegacyFieldId": 138,
+                  "ReadOnly": false,
+                  "Trim": true
+                },
+                {
+                  "Key": "webSearchMaxResults",
+                  "LegacyFieldId": 137,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "webSearchCooldownSeconds",
+                  "LegacyFieldId": 136,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "webSearchTimeoutSeconds",
+                  "LegacyFieldId": 139,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "webSearchReadMaxChars",
+                  "LegacyFieldId": null,
+                  "ReadOnly": true,
+                  "Trim": false
+                },
+                {
+                  "Key": "linkPreviewTimeoutSeconds",
+                  "LegacyFieldId": 66,
+                  "ReadOnly": false,
+                  "Trim": false
+                },
+                {
+                  "Key": "linkPreviewMax",
+                  "LegacyFieldId": 65,
+                  "ReadOnly": false,
+                  "Trim": false
+                }
+              ]
+            }
+          }
         }
       ]
     }
