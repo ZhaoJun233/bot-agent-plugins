@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "preset.feature.websearch",
+  "version": "1.1.1",
+  "sha256": "9f09f76b08f1570e4578c2e6721b39a421cabcd9070a40a90781712b8a97aee2",
+  "sourceRevision": "09b77e393104df6adc318cfad47378caf1141c19",
+  "reviewer": "ZhaoJun233",
+  "reviewedAt": "2026-11-28T08:59:00Z",
+  "evidence": [
+    "https://github.com/ZhaoJun233/bot-agent-plugins/commit/09b77e393104df6adc318cfad47378caf1141c19",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/releases/tag/preset.feature.websearch-1.1.1",
+    "https://github.com/ZhaoJun233/bot-agent-plugins/actions/runs/46127780588"
+  ],
+  "notes": "维护者已核验 1.1.1 官方插件源码提交、tooling.yml 构建与契约检查、GitHub Release 资产下载重检 SHA-256 一致；已放行纳入官方插件目录，不构成进程沙箱隔离保证。"
+}
