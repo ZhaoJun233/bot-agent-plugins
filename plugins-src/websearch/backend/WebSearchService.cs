@@ -171,7 +171,7 @@ public sealed partial class WebSearchService : IWebSearch
                 using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
                 cts.CancelAfter(timeout);
 
-                var resp = await _pages.GetAsync(CreatePageRequest(uri, 512 * 1024), cts.Token);
+                var resp = await _pages.GetAsync(CreateSearchSourceRequest(name, uri, 512 * 1024), cts.Token);
                 if (!resp.IsSuccessStatusCode)
                 {
                     lastError = $"{name} 返回 HTTP {(int)resp.StatusCode}";
@@ -416,8 +416,22 @@ public sealed partial class WebSearchService : IWebSearch
         }
     }
 
+    private const string BrowserUserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/122 Safari/537.36";
+    private const string ApiUserAgent = "BotAgent/1.5 (+https://github.com/ZhaoJun233/bot-agent)";
+
+    private static bool UsesApiUserAgent(string sourceName, Uri target)
+        => sourceName.StartsWith("wiki", StringComparison.OrdinalIgnoreCase)
+           || sourceName.StartsWith("searx", StringComparison.OrdinalIgnoreCase)
+           || sourceName.StartsWith("json", StringComparison.OrdinalIgnoreCase)
+           || target.Host.EndsWith(".wikipedia.org", StringComparison.OrdinalIgnoreCase)
+           || target.Host.EndsWith(".wikimedia.org", StringComparison.OrdinalIgnoreCase);
+
+    private static WebPageRequest CreateSearchSourceRequest(string sourceName, Uri target, int? limit = null)
+        => new(target, limit, UsesApiUserAgent(sourceName, target) ? ApiUserAgent : BrowserUserAgent,
+            "zh-CN,zh;q=0.9,en;q=0.8");
+
     /// <summary>页面请求不携带模型鉴权；安全传输负责逐跳重建。</summary>
     private static WebPageRequest CreatePageRequest(Uri target, int? limit = null)
-        => new(target, limit, "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/122 Safari/537.36", "zh-CN,zh;q=0.9,en;q=0.8");
+        => new(target, limit, BrowserUserAgent, "zh-CN,zh;q=0.9,en;q=0.8");
 
 }
